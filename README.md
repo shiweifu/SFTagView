@@ -26,8 +26,16 @@
 }
 ```
 
-本控件依赖 (PureLayout)[https://github.com/smileyborg/PureLayout] 布局库。
+详情见图：
+
+![预览图][1]
+
+
+  [1]: http://leanote.com/file/outputImage?fileId=5487869e38f41171fd000263
+
 
 ###TODO
  - Podspec
  - 旋转屏幕支持
+
+（本控件依赖 (PureLayout)[https://github.com/smileyborg/PureLayout] 布局库。）
