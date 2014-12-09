@@ -4,10 +4,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-
-@class ViewController;
-
 
 @interface SFTag : NSObject
 

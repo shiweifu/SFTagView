@@ -4,7 +4,6 @@
 //
 
 #import "SFTag.h"
-#import "ViewController.h"
 
 
 @implementation SFTag
