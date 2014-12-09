@@ -18,6 +18,7 @@
 @property (nonatomic) BOOL didSetup;
 @property (assign) CGFloat intrinsicHeight;
 
+
 @end
 
 @implementation SFTagView

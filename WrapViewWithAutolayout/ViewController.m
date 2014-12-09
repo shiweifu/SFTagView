@@ -26,9 +26,9 @@
 
   [self setupTagView];
 
-  self.tagView.margin    = UIEdgeInsetsMake(5, 5, 5, 5);
+  self.tagView.margin    = UIEdgeInsetsMake(10, 5, 10, 5);
   self.tagView.insets    = 5;
-  self.tagView.lineSpace = 10;
+  self.tagView.lineSpace = 2;
 
   [self.tagView setBackgroundColor:[UIColor redColor]];
   UIView *v = [UIView newAutoLayoutView];
@@ -45,7 +45,7 @@
 - (void)setupTagView
 {
 
-  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"Any Key"];
+  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"Any Key", @"Segment", @"Fault", @"S"];
 
   [texts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
@@ -58,9 +58,21 @@
     [self.tagView addTag:tag];
   }];
 
+  SFTag *tag7 = [SFTag tagWithText:@"777"];
+  tag7.textColor = [UIColor greenColor];
+  tag7.bgColor   = [UIColor blackColor];
+  tag7.target    = self;
+  tag7.action  = @selector(handleBtn:);
+
+  [self.tagView addTag:tag7];
+
+
+
   [self.view addSubview:self.tagView];
   [self.tagView autoCenterInSuperview];
-  [self.tagView autoSetDimension:ALDimensionWidth toSize:220];
+//  [self.tagView autoSetDimension:ALDimensionWidth toSize:320];
+  [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
+  [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
 }
 
 - (void)handleBtn:(UIButton *)btn

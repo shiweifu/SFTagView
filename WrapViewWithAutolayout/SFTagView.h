@@ -28,3 +28,4 @@
 - (void)addTag:(SFTag *)tag;
 
 @end
+
