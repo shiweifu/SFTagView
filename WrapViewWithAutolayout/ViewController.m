@@ -40,6 +40,14 @@
   [v autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
 
   self.testView = v;
+
+  UILabel *label = [UILabel newAutoLayoutView];
+  [label setNumberOfLines:0];
+  [label setText:@"hello world"];
+  [self.view addSubview:label];
+
+  [label autoPinEdgeToSuperviewEdge:ALEdgeBottom];
+  [label autoPinEdgeToSuperviewEdge:ALEdgeLeading];
 }
 
 - (void)setupTagView
