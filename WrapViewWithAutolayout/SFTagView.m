@@ -61,6 +61,7 @@
   UIView *previewsView = nil;
   CGFloat leftOffset = self.margin.left;
   CGFloat bottomOffset = self.margin.bottom;
+  CGFloat rightOffset = self.margin.right;
   CGFloat itemMargin = self.insets;
   CGFloat topPadding = self.margin.top;
   CGFloat itemVerticalMargin = self.lineSpace;
@@ -75,11 +76,12 @@
 
       CGFloat width = size.width;
       currentX += itemMargin;
-      if (currentX + width <= CGRectGetWidth(self.frame)) {
+      if (currentX + width + rightOffset <= CGRectGetWidth(self.frame)) {
         [self.wrapConstrains addObject:[view autoConstrainAttribute:ALEdgeLeading toAttribute:ALEdgeTrailing ofView:previewsView withOffset:itemMargin relation:NSLayoutRelationEqual]];
         [self.wrapConstrains addObject:[view autoAlignAxis:ALAxisBaseline toSameAxisOfView:previewsView]];
         currentX += size.width;
       }else {
+        //换行
         [self.wrapConstrains addObject: [view autoConstrainAttribute:ALEdgeTop toAttribute:ALEdgeBottom ofView:previewsView withOffset:itemVerticalMargin relation:NSLayoutRelationGreaterThanOrEqual]];
         currentX = leftOffset + size.width;
         self.intrinsicHeight += size.height + itemVerticalMargin;
@@ -87,6 +89,7 @@
       }
 
     }else {
+      //第一次添加
       [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:topPadding relation:NSLayoutRelationEqual]];
       [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:leftOffset relation:NSLayoutRelationEqual]];
       self.intrinsicHeight += size.height;

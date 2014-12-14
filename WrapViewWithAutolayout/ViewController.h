@@ -13,3 +13,13 @@
 
 @end
 
+
+@interface UIColor (Test)
+
++(UIColor *)tagBgColor;
+
++(UIColor *)tagTextColor;
+
+@end
+
+

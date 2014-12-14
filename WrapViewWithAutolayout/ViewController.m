@@ -22,66 +22,20 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   // Do any additional setup after loading the view, typically from a nib.
-  [self.view setBackgroundColor:[UIColor blueColor]];
+  [self.view setBackgroundColor:[UIColor whiteColor]];
 
   [self setupTagView];
+  [self setupData];
 
-  self.tagView.margin    = UIEdgeInsetsMake(10, 5, 10, 5);
+  self.tagView.margin    = UIEdgeInsetsMake(10, 25, 10, 25);
   self.tagView.insets    = 5;
   self.tagView.lineSpace = 2;
-
-  [self.tagView setBackgroundColor:[UIColor redColor]];
-  UIView *v = [UIView newAutoLayoutView];
-  [v setBackgroundColor:[UIColor redColor]];
-  [self.view addSubview:v];
-  [v autoSetDimension:ALDimensionHeight toSize:50 relation:NSLayoutRelationEqual];
-  [v autoSetDimension:ALDimensionWidth toSize:50 relation:NSLayoutRelationEqual];
-  [v autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-  [v autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
-
-  self.testView = v;
-
-  UILabel *label = [UILabel newAutoLayoutView];
-  [label setNumberOfLines:0];
-  [label setText:@"hello world"];
-  [self.view addSubview:label];
-
-  [label autoPinEdgeToSuperviewEdge:ALEdgeBottom];
-  [label autoPinEdgeToSuperviewEdge:ALEdgeLeading];
 }
 
 - (void)setupTagView
 {
-
-  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"More Button", @"More Button", @"More Button", @"Any Key", @"Segment", @"Fault", @"S"];
-
-  [texts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-  {
-    SFTag *tag = [SFTag tagWithText:obj];
-    tag.textColor = [UIColor blackColor];
-    tag.bgColor   = [UIColor yellowColor];
-    tag.target    = self;
-    tag.action  = @selector(handleBtn:);
-    tag.cornerRadius = 5;
-
-    [self.tagView addTag:tag];
-  }];
-
-  SFTag *tag7 = [SFTag tagWithText:@"777"];
-  tag7.textColor = [UIColor greenColor];
-  tag7.bgColor   = [UIColor blackColor];
-  tag7.target    = self;
-  tag7.action  = @selector(handleBtn:);
-
-  [self.tagView addTag:tag7];
-
-  NSAttributedString *s;
-
-  NSFontAttributeName;
-
   [self.view addSubview:self.tagView];
   [self.tagView autoCenterInSuperview];
-//  [self.tagView autoSetDimension:ALDimensionWidth toSize:320];
   [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
   [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
 }
@@ -109,6 +63,38 @@
 - (void)viewDidLayoutSubviews
 {
   [super viewDidLayoutSubviews];
+}
+
+
+- (void)setupData
+{
+  NSArray *texts = @[@"python", @"mysql", @"flask", @"django", @"bottle", @"webpy", @"php"];
+
+  [texts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+  {
+    SFTag *tag = [SFTag tagWithText:obj];
+    tag.textColor = [UIColor tagTextColor];
+    tag.bgColor = [UIColor tagBgColor];
+    tag.target = self;
+    tag.action = @selector(handleBtn:);
+    tag.cornerRadius = 3;
+
+    [self.tagView addTag:tag];
+  }];
+}
+
+@end
+
+@implementation UIColor(Test)
+
++ (UIColor *)tagBgColor
+{
+  return [UIColor brownColor];
+}
+
++ (UIColor *)tagTextColor
+{
+  return [UIColor whiteColor];
 }
 
 @end
