@@ -14,6 +14,8 @@
 
 @property (nonatomic, strong) UIColor *bgColor;
 
+@property (nonatomic, assign) CGFloat cornerRadius;
+
 @property (nonatomic) float fontSize;
 
 @property (nonatomic, strong) id target;

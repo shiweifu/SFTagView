@@ -18,25 +18,11 @@
 @property (nonatomic) BOOL didSetup;
 @property (assign) CGFloat intrinsicHeight;
 
-
 @end
 
 @implementation SFTagView
 {
 }
-
-- (instancetype)init
-{
-  self = [super init];
-  if (self)
-  {
-    self.tags = [@[] mutableCopy];
-    [self setBackgroundColor:[UIColor redColor]];
-  }
-
-  return self;
-}
-
 
 - (void)updateConstraints
 {
@@ -62,6 +48,10 @@
   [btn setBackgroundColor:tag.bgColor];
   [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
   [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
+
+  btn.layer.cornerRadius = tag.cornerRadius;
+  [btn.layer setMasksToBounds:YES];
+
   [self addSubview:btn];
   [self.tags addObject:tag];
 }
@@ -114,25 +104,6 @@
   [self invalidateIntrinsicContentSize];
 }
 
--(void)setViews:(NSArray*)views {
-  if (self.wrapConstrains.count > 0) {
-//    [UIView autoRemoveConstraints:self.wrapConstrains];
-    [self removeConstraints:self.wrapConstrains];
-    [self.wrapConstrains removeAllObjects];
-  }
-
-  NSArray *subviews = self.subviews;
-  for (UIView *view in subviews) {
-    [view removeFromSuperview];
-  }
-  for (UIView *view in views) {
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addSubview:view];
-    CGFloat leftPadding = 0;
-    [view autoSetDimension:ALDimensionWidth toSize:CGRectGetWidth(self.frame) - leftPadding relation:NSLayoutRelationLessThanOrEqual];
-  }
-}
-
 - (void)layoutSubviews
 {
   [super layoutSubviews];
@@ -143,6 +114,15 @@
       [self setNeedsUpdateConstraints];
     }
   }
+}
+
+- (NSMutableArray *)tags
+{
+  if(!_tags)
+  {
+    _tags = [NSMutableArray array];
+  }
+  return _tags;
 }
 
 @end

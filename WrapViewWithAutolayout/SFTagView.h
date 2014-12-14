@@ -13,17 +13,9 @@
 @interface SFTagView : UIView
 
 
-@property (nonatomic) UIEdgeInsets margin;
-@property (nonatomic) int lineSpace;
-@property (nonatomic) float insets;
-
-- (instancetype)initWithMargin:(UIEdgeInsets)margin
-                     lineSpace:(int)lineSpace
-                        insets:(float)insets;
-
-+ (instancetype)viewWithMargin:(UIEdgeInsets)margin
-                     lineSpace:(int)lineSpace
-                        insets:(float)insets;
+@property (nonatomic, assign) UIEdgeInsets margin;
+@property (nonatomic, assign) int lineSpace;
+@property (nonatomic, assign) CGFloat insets;
 
 - (void)addTag:(SFTag *)tag;
 

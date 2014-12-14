@@ -53,7 +53,7 @@
 - (void)setupTagView
 {
 
-  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"Any Key", @"Segment", @"Fault", @"S"];
+  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"More Button", @"More Button", @"More Button", @"Any Key", @"Segment", @"Fault", @"S"];
 
   [texts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
@@ -62,6 +62,7 @@
     tag.bgColor   = [UIColor yellowColor];
     tag.target    = self;
     tag.action  = @selector(handleBtn:);
+    tag.cornerRadius = 5;
 
     [self.tagView addTag:tag];
   }];
@@ -74,7 +75,9 @@
 
   [self.tagView addTag:tag7];
 
+  NSAttributedString *s;
 
+  NSFontAttributeName;
 
   [self.view addSubview:self.tagView];
   [self.tagView autoCenterInSuperview];
