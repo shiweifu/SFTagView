@@ -28,9 +28,9 @@
     self.tagView = ({
         SFTagView *view = [SFTagView new];
         view.backgroundColor = UIColor.cyanColor;
-        view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
-        view.insets    = 5;
-        view.lineSpace = 2;
+        view.padding    = UIEdgeInsetsMake(12, 12, 12, 12);
+        view.insets    = 15;
+        view.lineSpace = 10;
         view;
     });
     [self.view addSubview:self.tagView];
@@ -47,9 +47,10 @@
          SFTag *tag = [SFTag tagWithText:obj];
          tag.textColor = UIColor.whiteColor;
          tag.bgColor = UIColor.orangeColor;
+         tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
          tag.target = self;
          tag.action = @selector(handleBtn:);
-         tag.cornerRadius = 3;
+         tag.cornerRadius = 5;
          
          [self.tagView addTag:tag];
      }];

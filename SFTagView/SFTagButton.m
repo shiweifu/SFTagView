@@ -18,6 +18,7 @@
     [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
     btn.layer.cornerRadius = tag.cornerRadius;
     btn.layer.masksToBounds = YES;
+    [btn setContentEdgeInsets:tag.padding];
     
     return btn;
 }
