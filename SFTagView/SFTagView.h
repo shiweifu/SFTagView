@@ -10,7 +10,7 @@
 
 @class SFTag;
 @interface SFTagView : UIView
-@property (nonatomic, assign) UIEdgeInsets margin;
+@property (nonatomic, assign) UIEdgeInsets padding;
 @property (nonatomic, assign) int lineSpace;
 @property (nonatomic, assign) CGFloat insets;
 

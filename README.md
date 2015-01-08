@@ -7,7 +7,8 @@
 {
   self.tagView = ({
     SFTagView *view = [SFTagView new];
-    view.margin    = UIEdgeInsetsMake(10, 25, 10, 25);
+    view.backgroundColor = UIColor.cyanColor;
+    view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
     view.insets    = 5;
     view.lineSpace = 2;
     view;
@@ -24,8 +25,8 @@
   [@[@"python", @"mysql", @"flask", @"django", @"bottle", @"webpy", @"php"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
     SFTag *tag = [SFTag tagWithText:obj];
-    tag.textColor = [UIColor tagTextColor];
-    tag.bgColor = [UIColor tagBgColor];
+    tag.textColor = UIColor.whiteColor;
+    tag.bgColor = UIColor.orangeColor;
     tag.target = self;
     tag.action = @selector(handleBtn:);
     tag.cornerRadius = 3;

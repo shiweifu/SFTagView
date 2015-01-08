@@ -6,5 +6,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class SFTag;
 @interface SFTagButton : UIButton
++ (instancetype)buttonWithTag:(SFTag *)tag;
 @end

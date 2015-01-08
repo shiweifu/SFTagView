@@ -38,16 +38,7 @@
 
 - (void)addTag:(SFTag *)tag
 {
-    SFTagButton *btn = [SFTagButton new];
-    [btn setTitle:tag.text forState:UIControlStateNormal];
-    [btn.titleLabel setFont:[UIFont systemFontOfSize:tag.fontSize]];
-    [btn setBackgroundColor:tag.bgColor];
-    [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
-    [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
-    
-    btn.layer.cornerRadius = tag.cornerRadius;
-    [btn.layer setMasksToBounds:YES];
-    
+    SFTagButton *btn = [SFTagButton buttonWithTag:tag];
     [self addSubview:btn];
     [self.tags addObject:tag];
 }
@@ -57,11 +48,11 @@
     NSArray *subviews = self.subviews;
     UIView *previewsView = nil;
     UIView *superView = self;
-    CGFloat leftOffset = self.margin.left;
-    CGFloat bottomOffset = self.margin.bottom;
-    CGFloat rightOffset = self.margin.right;
+    CGFloat leftOffset = self.padding.left;
+    CGFloat bottomOffset = self.padding.bottom;
+    CGFloat rightOffset = self.padding.right;
     CGFloat itemMargin = self.insets;
-    CGFloat topPadding = self.margin.top;
+    CGFloat topPadding = self.padding.top;
     CGFloat itemVerticalMargin = self.lineSpace;
     CGFloat currentX = leftOffset;
     self.intrinsicHeight = topPadding;
@@ -101,9 +92,8 @@
         previewsView = view;
     }
     
-    UIView *lastView = subviews.lastObject;
-    [lastView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(superView.mas_bottom).with.offset(bottomOffset);
+    [previewsView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(superView.mas_bottom).with.offset(-bottomOffset);
     }];
     self.intrinsicHeight += bottomOffset;
     
