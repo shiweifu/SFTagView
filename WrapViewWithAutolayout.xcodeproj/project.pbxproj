@@ -97,20 +97,15 @@
 		682ABA6C1A36933300D57A1A /* WrapViewWithAutolayout */ = {
 			isa = PBXGroup;
 			children = (
+				CB3B6CFF1A5E27C9008911FF /* SFTagView */,
 				682ABA711A36933300D57A1A /* AppDelegate.h */,
 				682ABA721A36933300D57A1A /* AppDelegate.m */,
 				682ABA741A36933300D57A1A /* ViewController.h */,
 				682ABA751A36933300D57A1A /* ViewController.m */,
 				682ABA771A36933300D57A1A /* Main.storyboard */,
-				682ABA931A3693BC00D57A1A /* SFTagView.h */,
-				682ABA941A3693BC00D57A1A /* SFTagView.m */,
 				682ABA7A1A36933300D57A1A /* Images.xcassets */,
 				682ABA7C1A36933300D57A1A /* LaunchScreen.xib */,
 				682ABA6D1A36933300D57A1A /* Supporting Files */,
-				E198883D944B29B6488A5B34 /* SFTag.m */,
-				E1988A206257CAF7FE6FC77A /* SFTag.h */,
-				E1988DC652E4B5A7DD3FC44D /* SFTagButton.m */,
-				E19884C2F2577114719748BD /* SFTagButton.h */,
 			);
 			path = WrapViewWithAutolayout;
 			sourceTree = "<group>";
@@ -148,6 +143,20 @@
 				6B8DAFE5AC7C5EAB149408DB /* Pods-WrapViewWithAutolayout.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CB3B6CFF1A5E27C9008911FF /* SFTagView */ = {
+			isa = PBXGroup;
+			children = (
+				682ABA931A3693BC00D57A1A /* SFTagView.h */,
+				682ABA941A3693BC00D57A1A /* SFTagView.m */,
+				E198883D944B29B6488A5B34 /* SFTag.m */,
+				E1988A206257CAF7FE6FC77A /* SFTag.h */,
+				E1988DC652E4B5A7DD3FC44D /* SFTagButton.m */,
+				E19884C2F2577114719748BD /* SFTagButton.h */,
+			);
+			name = SFTagView;
+			path = ../SFTagView;
 			sourceTree = "<group>";
 		};
 		E9B8B9417B704821F5FF7698 /* Frameworks */ = {

@@ -9,15 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @class SFTag;
-
 @interface SFTagView : UIView
-
-
 @property (nonatomic, assign) UIEdgeInsets margin;
 @property (nonatomic, assign) int lineSpace;
 @property (nonatomic, assign) CGFloat insets;
 
 - (void)addTag:(SFTag *)tag;
-
 @end
 

@@ -1,28 +1,37 @@
-使用 AutoLayout 实现的 TagView，不用再使用CollectionView
-
+这个项目将[SFTagView](https://github.com/shiweifu/SFTagView)中依赖的Auto Layout库[PureLayout](https://github.com/smileyborg/PureLayout)改为[Masonry](https://github.com/Masonry/Masonry)。
 
 ###使用说明
 
 ```objc
 - (void)setupTagView
 {
+  self.tagView = ({
+    SFTagView *view = [SFTagView new];
+    view.margin    = UIEdgeInsetsMake(10, 25, 10, 25);
+    view.insets    = 5;
+    view.lineSpace = 2;
+    view;
+  });
+  [self.view addSubview:self.tagView];
+  [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
+    UIView *superView = self.view;
+    make.center.equalTo(superView);
+    make.leading.equalTo(superView.mas_leading);
+    make.trailing.equalTo(superView.mas_trailing);
+  }];
 
-  NSArray *texts = @[ @"A", @"Short", @"Button", @"Longer Button", @"Very Long Button", @"Short", @"More Button", @"Any Key"];
-
-  [texts enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+  //添加Tags
+  [@[@"python", @"mysql", @"flask", @"django", @"bottle", @"webpy", @"php"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
     SFTag *tag = [SFTag tagWithText:obj];
-    tag.textColor = [UIColor blackColor];
-    tag.bgColor   = [UIColor yellowColor];
+    tag.textColor = [UIColor tagTextColor];
+    tag.bgColor = [UIColor tagBgColor];
+    tag.target = self;
+    tag.action = @selector(handleBtn:);
+    tag.cornerRadius = 3;
 
     [self.tagView addTag:tag];
   }];
-
-  [self.view addSubview:self.tagView];
-
-  [self.tagView autoCenterInSuperview];
-
-  [self.tagView autoSetDimension:ALDimensionWidth toSize:220];
 }
 ```
 
@@ -32,10 +41,3 @@
 
 
   [1]: http://leanote.com/file/outputImage?fileId=5487869e38f41171fd000263
-
-
-###TODO
- - Podspec
- - 旋转屏幕支持
-
-（本控件依赖 (PureLayout)[https://github.com/smileyborg/PureLayout] 布局库。）

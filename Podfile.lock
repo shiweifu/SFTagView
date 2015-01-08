@@ -1,10 +1,10 @@
 PODS:
-  - PureLayout (2.0.3)
+  - Masonry (0.5.3)
 
 DEPENDENCIES:
-  - PureLayout
+  - Masonry
 
 SPEC CHECKSUMS:
-  PureLayout: 9658675ed95dabfcdf5154c0771ec9ed0980b370
+  Masonry: 35368c2ca9577ca87722c12fc52c4bad9b1c1516
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.35.0

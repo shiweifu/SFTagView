@@ -4,7 +4,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 target "WrapViewWithAutolayout" do
-pod 'PureLayout'
+pod 'Masonry'
 
 end
 
