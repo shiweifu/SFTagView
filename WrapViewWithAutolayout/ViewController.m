@@ -36,8 +36,8 @@
     [self.view addSubview:self.tagView];
     [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
         UIView *superView = self.view;
-        make.center.equalTo(superView);
-        make.leading.equalTo(superView.mas_leading);
+        make.centerY.equalTo(superView.mas_centerY).with.offset(0);
+        make.leading.equalTo(superView.mas_leading).with.offset(50);
         make.trailing.equalTo(superView.mas_trailing);
     }];
     
