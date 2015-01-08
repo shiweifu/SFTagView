@@ -10,6 +10,7 @@ Pod::Spec.new do |s|
                      - support specify set view's width of frame
                    DESC
 
+
   s.homepage     = "http://github.com/zsk425/SFTagView"
   s.license      = "MIT"
   s.author       = { "Shaokang Zhao" => "zsk425@hotmail.com" }
