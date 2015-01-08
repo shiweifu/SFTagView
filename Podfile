@@ -5,10 +5,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "WrapViewWithAutolayout" do
 pod 'Masonry'
-
 end
 
 target "WrapViewWithAutolayoutTests" do
-
 end
 
