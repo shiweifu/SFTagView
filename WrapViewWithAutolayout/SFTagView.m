@@ -13,9 +13,7 @@
 
 @interface SFTagView ()
 
-@property (nonatomic, strong) NSMutableArray *wrapConstrains;
 @property (nonatomic, strong) NSMutableArray *tags;
-@property (nonatomic) BOOL didSetup;
 @property (assign) CGFloat intrinsicHeight;
 
 @end
@@ -24,99 +22,115 @@
 {
 }
 
-- (void)updateConstraints
-{
-  if(!self.didSetup)
-  {
-    if(self.tags.count > 0 && self.frame.size.width != 0)
-    {
-      [self updateWrappingConstrains];
-    }
-  }
-  [super updateConstraints];
-}
-
 -(CGSize)intrinsicContentSize {
   return CGSizeMake(self.frame.size.width, self.intrinsicHeight);
 }
 
 - (void)addTag:(SFTag *)tag
 {
-  SFTagButton *btn = [SFTagButton newAutoLayoutView];
+  SFTagButton *btn = [[SFTagButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
   [btn setTitle:tag.text forState:UIControlStateNormal];
-  [btn.titleLabel setFont:[UIFont systemFontOfSize:tag.fontSize]];
+  [btn.titleLabel setFont:tag.font];
   [btn setBackgroundColor:tag.bgColor];
   [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
   [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
 
+  CGSize size = [tag.text sizeWithFont:tag.font];
+  CGFloat i = tag.inset;
+  if(i == 0)
+  {
+    i = 5;
+  }
+  size.width  += i * 2;
+  size.height += i * 2;
+
   btn.layer.cornerRadius = tag.cornerRadius;
   [btn.layer setMasksToBounds:YES];
 
-  [self addSubview:btn];
-  [self.tags addObject:tag];
+//  CGSize size = btn.intrinsicContentSize;
+  CGRect r = CGRectMake(0, 0, size.width, size.height);
+  [btn setFrame:r];
+
+  [self.tags addObject:btn];
+
+  [self rearrangeTags];
 }
 
--(void)updateWrappingConstrains {
-  NSArray *subviews = self.subviews;
-  UIView *previewsView = nil;
-  CGFloat leftOffset = self.margin.left;
-  CGFloat bottomOffset = self.margin.bottom;
-  CGFloat rightOffset = self.margin.right;
-  CGFloat itemMargin = self.insets;
-  CGFloat topPadding = self.margin.top;
-  CGFloat itemVerticalMargin = self.lineSpace;
-  CGFloat currentX = leftOffset;
-  self.intrinsicHeight = topPadding;
-  int lineIndex = 0;
-  for (UIView *view in subviews) {
-    CGSize size = view.intrinsicContentSize;
-    if (previewsView) {
-      [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:topPadding relation:NSLayoutRelationGreaterThanOrEqual]];
-      [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:leftOffset relation:NSLayoutRelationGreaterThanOrEqual]];
+#pragma mark - Tag removal
 
-      CGFloat width = size.width;
-      currentX += itemMargin;
-      if (currentX + width + rightOffset <= CGRectGetWidth(self.frame)) {
-        [self.wrapConstrains addObject:[view autoConstrainAttribute:ALEdgeLeading toAttribute:ALEdgeTrailing ofView:previewsView withOffset:itemMargin relation:NSLayoutRelationEqual]];
-        [self.wrapConstrains addObject:[view autoAlignAxis:ALAxisBaseline toSameAxisOfView:previewsView]];
-        currentX += size.width;
-      }else {
-        //换行
-        [self.wrapConstrains addObject: [view autoConstrainAttribute:ALEdgeTop toAttribute:ALEdgeBottom ofView:previewsView withOffset:itemVerticalMargin relation:NSLayoutRelationGreaterThanOrEqual]];
-        currentX = leftOffset + size.width;
-        self.intrinsicHeight += size.height + itemVerticalMargin;
-        lineIndex++;
-      }
-
-    }else {
-      //第一次添加
-      [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:topPadding relation:NSLayoutRelationEqual]];
-      [self.wrapConstrains addObject:[view autoPinEdgeToSuperviewEdge:ALEdgeLeading withInset:leftOffset relation:NSLayoutRelationEqual]];
-      self.intrinsicHeight += size.height;
-      currentX += size.width;
+- (void)removeTagText:(NSString *)text
+{
+  SFTagButton *b = nil;
+  for (SFTagButton *t in self.tags) {
+    if([text isEqualToString:t.titleLabel.text])
+    {
+      b = t;
     }
-
-    previewsView = view;
   }
 
-  UIView *lastView = subviews.lastObject;
-  [lastView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:bottomOffset];
-  self.intrinsicHeight += bottomOffset;
+  if(!b)
+  {
+    return;
+  }
 
-  self.didSetup = YES;
-  [self invalidateIntrinsicContentSize];
+  [b removeFromSuperview];
+  [self.tags removeObject:b];
+  [self rearrangeTags];
+}
+
+- (void)removeAllTags
+{
+  for (SFTagButton *t in self.tags) {
+    [t removeFromSuperview];
+  }
+  [self.tags removeAllObjects];
+  [self rearrangeTags];
+}
+
+- (void)rearrangeTags
+{
+  [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+    [obj removeFromSuperview];
+  }];
+  __block float maxY = self.margin.top;
+  __block float maxX = self.margin.left;
+  __block CGSize size;
+  [self.tags enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+    size = obj.frame.size;
+    [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+      if ([obj isKindOfClass:[SFTagButton class]]) {
+        maxY = MAX(maxY, obj.frame.origin.y);
+      }
+    }];
+
+    [self.subviews enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+      if ([obj isKindOfClass:[SFTagButton class]]) {
+        if (obj.frame.origin.y == maxY) {
+          maxX = MAX(maxX, obj.frame.origin.x + obj.frame.size.width);
+        }
+      }
+    }];
+
+    // Go to a new line if the tag won't fit
+    if (size.width + maxX + self.insets > (self.frame.size.width - self.margin.right)) {
+      maxY += size.height + self.lineSpace;
+      maxX = self.margin.left;
+    }
+    obj.frame = (CGRect){maxX + self.insets, maxY, size.width, size.height};
+    [self addSubview:obj];
+  }];
+
+  CGRect r = self.frame;
+  CGFloat n = maxY + size.height + self.margin.bottom;
+  self.intrinsicHeight = n > self.intrinsicHeight? n : self.intrinsicHeight;
+  [self setFrame:CGRectMake(r.origin.x, r.origin.y, self.frame.size.width, self.intrinsicHeight)];
+  NSLog(@"%@", NSStringFromCGRect(self.frame));
 }
 
 - (void)layoutSubviews
 {
   [super layoutSubviews];
-  if(!self.didSetup)
-  {
-    if(self.frame.size.width != 0)
-    {
-      [self setNeedsUpdateConstraints];
-    }
-  }
+  [self rearrangeTags];
 }
 
 - (NSMutableArray *)tags

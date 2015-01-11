@@ -19,5 +19,8 @@
 
 - (void)addTag:(SFTag *)tag;
 
+- (void)removeAllTags;
+
+- (void)removeTagText:(NSString *)text;
 @end
 

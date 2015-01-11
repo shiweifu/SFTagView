@@ -16,7 +16,10 @@
 
 @property (nonatomic, assign) CGFloat cornerRadius;
 
-@property (nonatomic) float fontSize;
+@property (nonatomic, strong) UIFont *font;
+
+//上下左右的缝隙
+@property (nonatomic) CGFloat inset;
 
 @property (nonatomic, strong) id target;
 

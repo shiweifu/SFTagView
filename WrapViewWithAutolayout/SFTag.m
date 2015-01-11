@@ -17,7 +17,7 @@
   if (self)
   {
     _text          = text;
-    self.fontSize  = 15;
+    self.font  = [UIFont systemFontOfSize:14];
     self.textColor = [UIColor blackColor];
     self.bgColor   = [UIColor whiteColor];
   }
