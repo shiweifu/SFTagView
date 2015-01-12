@@ -40,7 +40,4 @@
 
 详情见图：
 
-![预览图][1]
-
-
-  [1]: http://7u2iw4.com1.z0.glb.clouddn.com/SKTagView.png
+![](https://raw.github.com/zsk425/SKTagView/master/Screenshots/example.png)
