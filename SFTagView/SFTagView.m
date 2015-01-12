@@ -11,7 +11,10 @@
 #import "SFTagButton.h"
 #import <Masonry/Masonry.h>
 
+#define SAVE_C(c) [self.tagsContraints addObject:c]
+
 @interface SFTagView ()
+@property (nonatomic, strong) NSMutableArray *tagsConstraints;
 @property (nonatomic, strong) NSMutableArray *tags;
 @property (nonatomic) BOOL didSetup;
 @property (nonatomic) CGFloat intrinsicHeight;
@@ -19,23 +22,83 @@
 
 @implementation SFTagView
 
+#pragma mark - Life circle
 - (void)updateConstraints
 {
-    if(!self.didSetup)
-    {
-        if(self.tags.count > 0 && self.frame.size.width != 0)
-        {
-            [self updateWrappingConstrains];
-        }
-    }
+    [self updateWrappingConstrains];
     [super updateConstraints];
 }
 
 -(CGSize)intrinsicContentSize
 {
-    return CGSizeMake(self.frame.size.width, self.intrinsicHeight);
+    NSArray *subviews = self.subviews;
+    UIView *previewsView = nil;
+    CGFloat leftOffset = self.padding.left;
+    CGFloat bottomOffset = self.padding.bottom;
+    CGFloat rightOffset = self.padding.right;
+    CGFloat itemMargin = self.insets;
+    CGFloat topPadding = self.padding.top;
+    CGFloat itemVerticalMargin = self.lineSpace;
+    CGFloat currentX = leftOffset;
+    CGFloat intrinsicHeight = topPadding;
+    CGFloat intrinsicWidth = leftOffset;
+    
+    if (!self.singleLine && self.preferredMaxLayoutWidth > 0)
+    {
+        for (UIView *view in subviews)
+        {
+            CGSize size = view.intrinsicContentSize;
+            if (previewsView)
+            {
+                CGFloat width = size.width;
+                currentX += itemMargin;
+                if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth)
+                {
+                    currentX += size.width;
+                }
+                else
+                {
+                    //New line
+                    currentX = leftOffset + size.width;
+                    intrinsicHeight += size.height + itemVerticalMargin;
+                }
+            }
+            else
+            {
+                //First one
+                self.intrinsicHeight += size.height;
+                currentX += size.width;
+            }
+            previewsView = view;
+            intrinsicWidth = MAX(intrinsicWidth, currentX + rightOffset);
+        }
+        
+        intrinsicHeight += bottomOffset;
+    }
+    else
+    {
+        for (UIView *view in subviews)
+        {
+            CGSize size = view.intrinsicContentSize;
+            intrinsicWidth += size.width;
+        }
+        intrinsicWidth += itemMargin * (subviews.count - 1) + rightOffset;
+        intrinsicHeight += ((UIView *)subviews.firstObject).intrinsicContentSize.height + bottomOffset;
+    }
+    
+    return CGSizeMake(intrinsicWidth, intrinsicHeight);
 }
 
+- (void)layoutSubviews
+{
+    if (!self.singleLine) {
+        self.preferredMaxLayoutWidth = self.frame.size.width;
+    }
+    
+    [super layoutSubviews];
+}
+
+#pragma mark - Public methods
 - (void)addTag:(SFTag *)tag
 {
     SFTagButton *btn = [SFTagButton buttonWithTag:tag];
@@ -43,8 +106,34 @@
     [self.tags addObject:tag];
 }
 
+#pragma mark - Private methods
 -(void)updateWrappingConstrains
 {
+    if (self.didSetup || !self.tags.count || !self.frame.size.width)
+    {
+        return;
+    }
+    
+    //Remove old ones
+    [self.tagsConstraints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if([obj isKindOfClass:MASConstraint.class])
+        {
+            [(MASConstraint *)obj uninstall];
+        }
+        else if([obj isKindOfClass:NSArray.class])
+        {
+            [(NSArray *)obj enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                [(MASConstraint *)obj uninstall];
+            }];
+        }
+        else
+        {
+            NSAssert(NO, @"Error:unknown class type:%@",obj);
+        }
+    }];
+    [self.tagsConstraints removeAllObjects];
+    
+    //Reinstall
     NSArray *subviews = self.subviews;
     UIView *previewsView = nil;
     UIView *superView = self;
@@ -56,61 +145,87 @@
     CGFloat itemVerticalMargin = self.lineSpace;
     CGFloat currentX = leftOffset;
     self.intrinsicHeight = topPadding;
-    int lineIndex = 0;
-    for (UIView *view in subviews) {
-        CGSize size = view.intrinsicContentSize;
-        if (previewsView) {
-            CGFloat width = size.width;
-            currentX += itemMargin;
-            if (currentX + width + rightOffset <= CGRectGetWidth(self.frame)) {
-                [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.leading.equalTo(previewsView.mas_trailing).with.offset(itemMargin);
-                    make.centerY.equalTo(previewsView.mas_centerY);
+    if (!self.singleLine && self.preferredMaxLayoutWidth > 0)
+    {
+        for (UIView *view in subviews)
+        {
+            CGSize size = view.intrinsicContentSize;
+            if (previewsView)
+            {
+                CGFloat width = size.width;
+                currentX += itemMargin;
+                if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth)
+                {
+                    [view mas_makeConstraints:^(MASConstraintMaker *make)
+                    {
+                        SAVE_C(make.leading.equalTo(previewsView.mas_trailing).with.offset(itemMargin));
+                        SAVE_C(make.centerY.equalTo(previewsView.mas_centerY));
+                    }];
+                    currentX += size.width;
+                }
+                else
+                {
+                    //换行
+                    [view mas_makeConstraints:^(MASConstraintMaker *make)
+                    {
+                        SAVE_C(make.top.greaterThanOrEqualTo(previewsView.mas_bottom).with.offset(itemVerticalMargin));
+                        SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
+                    }];
+                    currentX = leftOffset + size.width;
+                    self.intrinsicHeight += size.height + itemVerticalMargin;
+                }
+            }
+            else
+            {
+                //第一次添加
+                [view mas_makeConstraints:^(MASConstraintMaker *make)
+                {
+                    SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
+                    SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
                 }];
+                self.intrinsicHeight += size.height;
                 currentX += size.width;
-            }else {
-                //换行
-                [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.greaterThanOrEqualTo(previewsView.mas_bottom).with.offset(itemVerticalMargin);
-                    make.leading.equalTo(superView.mas_leading).with.offset(leftOffset);
-                }];
-                currentX = leftOffset + size.width;
-                self.intrinsicHeight += size.height + itemVerticalMargin;
-                lineIndex++;
             }
             
-        }else {
-            //第一次添加
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(superView.mas_top).with.offset(topPadding);
-                make.leading.equalTo(superView.mas_leading).with.offset(leftOffset);
-            }];
-            self.intrinsicHeight += size.height;
-            currentX += size.width;
+            previewsView = view;
         }
-        
-        previewsView = view;
     }
-    
-    [previewsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(superView.mas_bottom).with.offset(-bottomOffset);
-    }];
-    self.intrinsicHeight += bottomOffset;
-    
-    self.didSetup = YES;
-    [self invalidateIntrinsicContentSize];
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    if(!self.didSetup)
+    else
     {
-        if(self.frame.size.width != 0)
+        for (UIView *view in subviews)
         {
-            [self setNeedsUpdateConstraints];
+            CGSize size = view.intrinsicContentSize;
+            if (previewsView)
+            {
+                [view mas_makeConstraints:^(MASConstraintMaker *make)
+                 {
+                     SAVE_C(make.leading.equalTo(previewsView.mas_trailing).with.offset(itemMargin));
+                     SAVE_C(make.centerY.equalTo(previewsView.mas_centerY));
+                 }];
+                currentX += size.width;
+            }
+            else
+            {
+                //第一次添加
+                [view mas_makeConstraints:^(MASConstraintMaker *make)
+                 {
+                     SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
+                     SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
+                 }];
+                self.intrinsicHeight += size.height;
+                currentX += size.width;
+            }
+            
+            previewsView = view;
         }
     }
+    
+    [previewsView mas_makeConstraints:^(MASConstraintMaker *make)
+     {
+         SAVE_C(make.bottom.equalTo(superView.mas_bottom).with.offset(-bottomOffset));
+     }];
+    self.intrinsicHeight += bottomOffset;
+    self.didSetup = YES;
 }
 
 - (NSMutableArray *)tags
@@ -120,6 +235,24 @@
         _tags = [NSMutableArray array];
     }
     return _tags;
+}
+
+- (NSMutableArray *)tagsContraints
+{
+    if(!_tagsConstraints)
+    {
+        _tagsConstraints = [NSMutableArray array];
+    }
+    return _tagsConstraints;
+}
+
+- (void)setPreferredMaxLayoutWidth:(CGFloat)preferredMaxLayoutWidth
+{
+    if (preferredMaxLayoutWidth != _preferredMaxLayoutWidth) {
+        _didSetup = NO;
+        _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
+        [self setNeedsUpdateConstraints];
+    }
 }
 
 @end

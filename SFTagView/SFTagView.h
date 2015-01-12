@@ -13,6 +13,8 @@
 @property (nonatomic, assign) UIEdgeInsets padding;
 @property (nonatomic, assign) int lineSpace;
 @property (nonatomic, assign) CGFloat insets;
+@property (nonatomic) CGFloat preferredMaxLayoutWidth;
+@property (nonatomic) BOOL singleLine;
 
 - (void)addTag:(SFTag *)tag;
 @end
