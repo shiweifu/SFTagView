@@ -5,6 +5,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target "WrapViewWithAutolayout" do
 pod 'Masonry'
+pod 'HexColors'
 end
 
 target "WrapViewWithAutolayoutTests" do

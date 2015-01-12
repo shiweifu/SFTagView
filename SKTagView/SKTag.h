@@ -1,12 +1,12 @@
 //
-// Created by shiweifu on 12/9/14.
-// Copyright (c) 2014 shiweifu. All rights reserved.
+// Created by Shaokang Zhao on 01/12/15.
+// Copyright (c) 2015 Shaokang Zhao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface SFTag : NSObject
+@interface SKTag : NSObject
 
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, strong) UIColor *textColor;

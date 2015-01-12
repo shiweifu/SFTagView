@@ -1,4 +1,6 @@
-这个项目将[SFTagView](https://github.com/shiweifu/SFTagView)中依赖的Auto Layout库[PureLayout](https://github.com/smileyborg/PureLayout)改为[Masonry](https://github.com/Masonry/Masonry)。
+这个项目由[SFTagView](https://github.com/shiweifu/SFTagView)而来,修改了自动布局操作,添加单行支持,依赖Auto layout库[Masonry](https://github.com/Masonry/Masonry)。
+
+当在UITableViewCell中使用多行模式时，请先设置preferredMaxLayoutWidth属性。
 
 ###使用说明
 
@@ -6,7 +8,7 @@
 - (void)setupTagView
 {
   self.tagView = ({
-    SFTagView *view = [SFTagView new];
+    SKTagView *view = [SKTagView new];
     view.backgroundColor = UIColor.cyanColor;
     view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
     view.insets    = 5;
@@ -22,9 +24,9 @@
   }];
 
   //添加Tags
-  [@[@"python", @"mysql", @"flask", @"django", @"bottle", @"webpy", @"php"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+  [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
-    SFTag *tag = [SFTag tagWithText:obj];
+    SKTag *tag = [SKTag tagWithText:obj];
     tag.textColor = UIColor.whiteColor;
     tag.bgColor = UIColor.orangeColor;
     tag.target = self;
@@ -41,4 +43,4 @@
 ![预览图][1]
 
 
-  [1]: http://leanote.com/file/outputImage?fileId=5487869e38f41171fd000263
+  [1]: http://7u2iw4.com1.z0.glb.clouddn.com/SKTagView.png

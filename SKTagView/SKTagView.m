@@ -1,25 +1,24 @@
 //
 //  SFTagView.m
-//  WrapViewWithAutolayout
 //
-//  Created by shiweifu on 12/9/14.
-//  Copyright (c) 2014 shiweifu. All rights reserved.
+//  Created by Shaokang Zhao on 01/12/15.
+//  Copyright (c) 2015 Shaokang Zhao. All rights reserved.
 //
 
-#import "SFTagView.h"
-#import "SFTag.h"
-#import "SFTagButton.h"
+#import "SKTagView.h"
+#import "SKTag.h"
+#import "SKTagButton.h"
 #import <Masonry/Masonry.h>
 
 #define SAVE_C(c) [self.tagsContraints addObject:c]
 
-@interface SFTagView ()
+@interface SKTagView ()
 @property (nonatomic, strong) NSMutableArray *tagsConstraints;
 @property (nonatomic, strong) NSMutableArray *tags;
 @property (nonatomic) BOOL didSetup;
 @end
 
-@implementation SFTagView
+@implementation SKTagView
 
 #pragma mark - Life circle
 - (void)updateConstraints
@@ -105,11 +104,14 @@
 }
 
 #pragma mark - Public methods
-- (void)addTag:(SFTag *)tag
+- (void)addTag:(SKTag *)tag
 {
-    SFTagButton *btn = [SFTagButton buttonWithTag:tag];
+    SKTagButton *btn = [SKTagButton buttonWithTag:tag];
     [self addSubview:btn];
     [self.tags addObject:tag];
+    
+    self.didSetup = NO;
+    [self invalidateIntrinsicContentSize];
 }
 
 #pragma mark - Private methods

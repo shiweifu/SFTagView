@@ -7,12 +7,14 @@
 //
 
 #import "ViewController.h"
-#import "SFTag.h"
-#import "SFTagView.h"
+#import "SKTag.h"
+#import "SKTagView.h"
 #import <Masonry/Masonry.h>
+#import <HexColors/HexColor.h>
 
 @interface ViewController ()
-@property (strong, nonatomic) SFTagView *tagView;
+@property (strong, nonatomic) SKTagView *tagView;
+@property (nonatomic, strong) NSArray *colorPool;
 @end
 
 @implementation ViewController
@@ -20,14 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
+    
     [self setupTagView];
 }
 
 - (void)setupTagView
 {
     self.tagView = ({
-        SFTagView *view = [SFTagView new];
-        view.backgroundColor = UIColor.cyanColor;
+        SKTagView *view = [SKTagView new];
+        view.backgroundColor = UIColor.whiteColor;
         view.padding    = UIEdgeInsetsMake(12, 12, 12, 12);
         view.insets    = 15;
         view.lineSpace = 10;
@@ -42,12 +46,13 @@
     }];
     
     //添加Tags
-    [@[@"python", @"mysql", @"flask", @"django", @"bottle", @"webpy", @"php"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
-         SFTag *tag = [SFTag tagWithText:obj];
-         tag.textColor = UIColor.whiteColor;
-         tag.bgColor = UIColor.orangeColor;
+         SKTag *tag = [SKTag tagWithText:obj];
+         tag.textColor = [UIColor whiteColor];
+         tag.fontSize = 15;
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
+         tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
          tag.target = self;
          tag.action = @selector(handleBtn:);
          tag.cornerRadius = 5;
@@ -60,5 +65,21 @@
 {
     NSLog(@"%@", btn.titleLabel.text);
 }
+
+#pragma mark - User interactions
+- (IBAction)onAdd:(id)sender
+{
+    SKTag *tag = [SKTag tagWithText:@"New Lang"];
+    tag.textColor = [UIColor whiteColor];
+    tag.fontSize = 15;
+    tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
+    tag.bgColor = [UIColor colorWithHexString:self.colorPool[arc4random() % self.colorPool.count]];
+    tag.target = self;
+    tag.action = @selector(handleBtn:);
+    tag.cornerRadius = 5;
+    
+    [self.tagView addTag:tag];
+}
+
 
 @end

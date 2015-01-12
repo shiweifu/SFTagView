@@ -15,9 +15,9 @@
 		682ABA7B1A36933300D57A1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 682ABA7A1A36933300D57A1A /* Images.xcassets */; };
 		682ABA7E1A36933300D57A1A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682ABA7C1A36933300D57A1A /* LaunchScreen.xib */; };
 		682ABA8A1A36933300D57A1A /* WrapViewWithAutolayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA891A36933300D57A1A /* WrapViewWithAutolayoutTests.m */; };
-		682ABA951A3693BC00D57A1A /* SFTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA941A3693BC00D57A1A /* SFTagView.m */; };
-		E198833B70106A7B969AF9D2 /* SFTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E198883D944B29B6488A5B34 /* SFTag.m */; };
-		E1988E0CF76D59E86E94A7CC /* SFTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1988DC652E4B5A7DD3FC44D /* SFTagButton.m */; };
+		682ABA951A3693BC00D57A1A /* SKTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA941A3693BC00D57A1A /* SKTagView.m */; };
+		E198833B70106A7B969AF9D2 /* SKTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E198883D944B29B6488A5B34 /* SKTag.m */; };
+		E1988E0CF76D59E86E94A7CC /* SKTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1988DC652E4B5A7DD3FC44D /* SKTagButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,13 +45,13 @@
 		682ABA831A36933300D57A1A /* WrapViewWithAutolayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WrapViewWithAutolayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		682ABA881A36933300D57A1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		682ABA891A36933300D57A1A /* WrapViewWithAutolayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WrapViewWithAutolayoutTests.m; sourceTree = "<group>"; };
-		682ABA931A3693BC00D57A1A /* SFTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTagView.h; sourceTree = "<group>"; };
-		682ABA941A3693BC00D57A1A /* SFTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTagView.m; sourceTree = "<group>"; };
+		682ABA931A3693BC00D57A1A /* SKTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagView.h; sourceTree = "<group>"; };
+		682ABA941A3693BC00D57A1A /* SKTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagView.m; sourceTree = "<group>"; };
 		6B8DAFE5AC7C5EAB149408DB /* Pods-WrapViewWithAutolayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WrapViewWithAutolayout.release.xcconfig"; path = "Pods/Target Support Files/Pods-WrapViewWithAutolayout/Pods-WrapViewWithAutolayout.release.xcconfig"; sourceTree = "<group>"; };
-		E19884C2F2577114719748BD /* SFTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTagButton.h; sourceTree = "<group>"; };
-		E198883D944B29B6488A5B34 /* SFTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTag.m; sourceTree = "<group>"; };
-		E1988A206257CAF7FE6FC77A /* SFTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFTag.h; sourceTree = "<group>"; };
-		E1988DC652E4B5A7DD3FC44D /* SFTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFTagButton.m; sourceTree = "<group>"; };
+		E19884C2F2577114719748BD /* SKTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTagButton.h; sourceTree = "<group>"; };
+		E198883D944B29B6488A5B34 /* SKTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTag.m; sourceTree = "<group>"; };
+		E1988A206257CAF7FE6FC77A /* SKTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTag.h; sourceTree = "<group>"; };
+		E1988DC652E4B5A7DD3FC44D /* SKTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTagButton.m; sourceTree = "<group>"; };
 		E9C06A50A78EFF632557FD24 /* libPods-WrapViewWithAutolayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WrapViewWithAutolayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 		682ABA6C1A36933300D57A1A /* WrapViewWithAutolayout */ = {
 			isa = PBXGroup;
 			children = (
-				CB3B6CFF1A5E27C9008911FF /* SFTagView */,
+				CB3B6CFF1A5E27C9008911FF /* SKTagView */,
 				682ABA711A36933300D57A1A /* AppDelegate.h */,
 				682ABA721A36933300D57A1A /* AppDelegate.m */,
 				682ABA741A36933300D57A1A /* ViewController.h */,
@@ -145,18 +145,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		CB3B6CFF1A5E27C9008911FF /* SFTagView */ = {
+		CB3B6CFF1A5E27C9008911FF /* SKTagView */ = {
 			isa = PBXGroup;
 			children = (
-				682ABA931A3693BC00D57A1A /* SFTagView.h */,
-				682ABA941A3693BC00D57A1A /* SFTagView.m */,
-				E198883D944B29B6488A5B34 /* SFTag.m */,
-				E1988A206257CAF7FE6FC77A /* SFTag.h */,
-				E1988DC652E4B5A7DD3FC44D /* SFTagButton.m */,
-				E19884C2F2577114719748BD /* SFTagButton.h */,
+				682ABA931A3693BC00D57A1A /* SKTagView.h */,
+				682ABA941A3693BC00D57A1A /* SKTagView.m */,
+				E198883D944B29B6488A5B34 /* SKTag.m */,
+				E1988A206257CAF7FE6FC77A /* SKTag.h */,
+				E1988DC652E4B5A7DD3FC44D /* SKTagButton.m */,
+				E19884C2F2577114719748BD /* SKTagButton.h */,
 			);
-			name = SFTagView;
-			path = ../SFTagView;
+			name = SKTagView;
+			path = ../SKTagView;
 			sourceTree = "<group>";
 		};
 		E9B8B9417B704821F5FF7698 /* Frameworks */ = {
@@ -304,10 +304,10 @@
 			files = (
 				682ABA761A36933300D57A1A /* ViewController.m in Sources */,
 				682ABA731A36933300D57A1A /* AppDelegate.m in Sources */,
-				682ABA951A3693BC00D57A1A /* SFTagView.m in Sources */,
+				682ABA951A3693BC00D57A1A /* SKTagView.m in Sources */,
 				682ABA701A36933300D57A1A /* main.m in Sources */,
-				E198833B70106A7B969AF9D2 /* SFTag.m in Sources */,
-				E1988E0CF76D59E86E94A7CC /* SFTagButton.m in Sources */,
+				E198833B70106A7B969AF9D2 /* SKTag.m in Sources */,
+				E1988E0CF76D59E86E94A7CC /* SKTagButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

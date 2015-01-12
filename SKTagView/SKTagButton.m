@@ -1,16 +1,16 @@
 //
-// Created by shiweifu on 12/9/14.
-// Copyright (c) 2014 shiweifu. All rights reserved.
+// Created by Shaokang Zhao on 01/12/15.
+// Copyright (c) 2015 Shaokang Zhao. All rights reserved.
 //
 
-#import "SFTagButton.h"
-#import "SFTag.h"
+#import "SKTagButton.h"
+#import "SKTag.h"
 
-@implementation SFTagButton
+@implementation SKTagButton
 
-+ (instancetype)buttonWithTag:(SFTag *)tag
++ (instancetype)buttonWithTag:(SKTag *)tag
 {
-    SFTagButton *btn = [super buttonWithType:UIButtonTypeSystem];
+    SKTagButton *btn = [super buttonWithType:UIButtonTypeSystem];
     [btn setTitle:tag.text forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:tag.fontSize];
     btn.backgroundColor = tag.bgColor;

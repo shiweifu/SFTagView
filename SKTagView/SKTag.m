@@ -1,11 +1,11 @@
 //
-// Created by shiweifu on 12/9/14.
-// Copyright (c) 2014 shiweifu. All rights reserved.
+// Created by Shaokang Zhao on 01/12/15.
+// Copyright (c) 2015 Shaokang Zhao. All rights reserved.
 //
 
-#import "SFTag.h"
+#import "SKTag.h"
 
-@implementation SFTag
+@implementation SKTag
 
 - (instancetype)initWithText:(NSString *)text
 {
