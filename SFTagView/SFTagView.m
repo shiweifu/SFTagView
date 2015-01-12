@@ -109,7 +109,7 @@
 #pragma mark - Private methods
 -(void)updateWrappingConstrains
 {
-    if (self.didSetup || !self.tags.count || !self.frame.size.width)
+    if (self.didSetup || !self.tags.count)
     {
         return;
     }
