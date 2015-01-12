@@ -13,6 +13,10 @@ pod "SKTagView"
 
 ### Usage
 
+#### Example
+Check out the project. It contains the usage of normal and in UITableViewCell.
+
+#### Code
 ```objc
 - (void)setupTagView
 {
@@ -55,7 +59,11 @@ When use with UITableViewCell in multi-line mode,it MUST be set preferredMaxLayo
 
 ### Screenshot
 
+#### Normal
 ![](https://raw.github.com/zsk425/SKTagView/master/Screenshots/example.png)
+
+#### With UITableViewCell
+![](https://raw.github.com/zsk425/SKTagView/master/Screenshots/example2.png)
 
 ### License
 
