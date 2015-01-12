@@ -5,6 +5,9 @@ Pod::Spec.new do |s|
 
   s.description  = <<-DESC
                     SKTagView is a view supports to display tags with auto layout.
+                    - supports auto layout
+                    - supports working with UITableViewCell
+                    - supports single and multi-line mode
                    DESC
 
   s.homepage     = "http://github.com/zsk425/SKTagView"
