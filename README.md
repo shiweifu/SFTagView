@@ -1,8 +1,17 @@
-这个项目由[SFTagView](https://github.com/shiweifu/SFTagView)而来,修改了自动布局操作,添加单行支持,依赖Auto layout库[Masonry](https://github.com/Masonry/Masonry)。
+## SKTagView
 
-当在UITableViewCell中使用多行模式时，请先设置preferredMaxLayoutWidth属性。
+This project is derived from [SFTagView](https://github.com/shiweifu/SFTagView),which tries to build a view displaying tags without using UICollectionView and supports auto layout.It's a good begining,but not good enough.
 
-###使用说明
+So I try to make it more auto layout.After tring a lot,I inspired by UILabel.Now it just works like a UILabel and supports single line and multi-line.
+
+### Installation with CocoaPods
+
+```ruby
+platform :ios, '7.0'
+pod "SKTagView"
+```
+
+### Usage
 
 ```objc
 - (void)setupTagView
@@ -23,7 +32,7 @@
     make.trailing.equalTo(superView.mas_trailing);
   }];
 
-  //添加Tags
+  //Add Tags
   [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
   {
     SKTag *tag = [SKTag tagWithText:obj];
@@ -38,6 +47,16 @@
 }
 ```
 
-详情见图：
+### Tips
+When use with UITableViewCell in multi-line mode,it MUST be set preferredMaxLayoutWidth before invoking
+```objc
+[cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+```
+
+### Screenshot
 
 ![](https://raw.github.com/zsk425/SKTagView/master/Screenshots/example.png)
+
+### License
+
+AFNetworking is available under the MIT license. See the LICENSE file for more info.
