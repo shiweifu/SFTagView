@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSMutableArray *tagsConstraints;
 @property (nonatomic, strong) NSMutableArray *tags;
 @property (nonatomic) BOOL didSetup;
-@property (nonatomic) CGFloat intrinsicHeight;
 @end
 
 @implementation SFTagView
@@ -43,8 +42,10 @@
     CGFloat intrinsicHeight = topPadding;
     CGFloat intrinsicWidth = leftOffset;
     
+    
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0)
     {
+        NSInteger lineCount = 0;
         for (UIView *view in subviews)
         {
             CGSize size = view.intrinsicContentSize;
@@ -59,21 +60,26 @@
                 else
                 {
                     //New line
+                    lineCount ++;
+                    
                     currentX = leftOffset + size.width;
-                    intrinsicHeight += size.height + itemVerticalMargin;
+                    intrinsicHeight += size.height;
+                    
                 }
             }
             else
             {
                 //First one
-                self.intrinsicHeight += size.height;
+                lineCount ++;
+                
+                intrinsicHeight += size.height;
                 currentX += size.width;
             }
             previewsView = view;
             intrinsicWidth = MAX(intrinsicWidth, currentX + rightOffset);
         }
         
-        intrinsicHeight += bottomOffset;
+        intrinsicHeight += bottomOffset + itemVerticalMargin * (lineCount - 1);
     }
     else
     {
@@ -144,7 +150,7 @@
     CGFloat topPadding = self.padding.top;
     CGFloat itemVerticalMargin = self.lineSpace;
     CGFloat currentX = leftOffset;
-    self.intrinsicHeight = topPadding;
+    
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0)
     {
         for (UIView *view in subviews)
@@ -172,18 +178,16 @@
                         SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
                     }];
                     currentX = leftOffset + size.width;
-                    self.intrinsicHeight += size.height + itemVerticalMargin;
                 }
             }
             else
             {
-                //第一次添加
+                //first one
                 [view mas_makeConstraints:^(MASConstraintMaker *make)
                 {
                     SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
                     SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
                 }];
-                self.intrinsicHeight += size.height;
                 currentX += size.width;
             }
             
@@ -212,7 +216,6 @@
                      SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
                      SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
                  }];
-                self.intrinsicHeight += size.height;
                 currentX += size.width;
             }
             
@@ -224,7 +227,7 @@
      {
          SAVE_C(make.bottom.equalTo(superView.mas_bottom).with.offset(-bottomOffset));
      }];
-    self.intrinsicHeight += bottomOffset;
+    
     self.didSetup = YES;
 }
 
