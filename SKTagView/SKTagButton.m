@@ -6,19 +6,24 @@
 #import "SKTagButton.h"
 #import "SKTag.h"
 
+@interface SKTagButton ()
+@property (nonatomic, strong) SKTag *item;
+@end
+
 @implementation SKTagButton
 
-+ (instancetype)buttonWithTag:(SKTag *)tag
++ (instancetype)buttonWithTag:(SKTag *)item
 {
     SKTagButton *btn = [super buttonWithType:UIButtonTypeSystem];
-    [btn setTitle:tag.text forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:tag.fontSize];
-    btn.backgroundColor = tag.bgColor;
-    [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
-    [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
-    btn.layer.cornerRadius = tag.cornerRadius;
+    btn.item = item;
+    [btn setTitle:item.text forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:item.fontSize];
+    btn.backgroundColor = item.bgColor;
+    [btn setTitleColor:item.textColor forState:UIControlStateNormal];
+    [btn addTarget:item.target action:item.action forControlEvents:UIControlEventTouchUpInside];
+    btn.layer.cornerRadius = item.cornerRadius;
     btn.layer.masksToBounds = YES;
-    [btn setContentEdgeInsets:tag.padding];
+    [btn setContentEdgeInsets:item.padding];
     
     return btn;
 }

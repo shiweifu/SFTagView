@@ -8,5 +8,8 @@
 
 @class SKTag;
 @interface SKTagButton : UIButton
-+ (instancetype)buttonWithTag:(SKTag *)tag;
++ (instancetype)buttonWithTag:(SKTag *)item;
+
+@property (nonatomic, strong, readonly) SKTag *item;
+
 @end
