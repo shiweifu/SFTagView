@@ -1,8 +1,8 @@
 ## SKTagView
 
-This project is derived from [SFTagView](https://github.com/shiweifu/SFTagView),which tries to build a view displaying tags without using UICollectionView and supports auto layout.It's a good begining,but not good enough.
+This library is derived from [SFTagView](https://github.com/shiweifu/SFTagView),which tries to build a view displaying tags without using UICollectionView and supports auto layout.It's a good beginning,but not good enough.
 
-So I try to make it more auto layout.After tring a lot,I inspired by UILabel.Now it just works like a UILabel and supports single line and multi-line.
+So I tried to make it more auto layout.After having tried a lot,I inspired by UILabel.Now it just works like UILabel and supports single line and multi-line.
 
 ### Installation with CocoaPods
 
@@ -14,7 +14,7 @@ pod "SKTagView"
 ### Usage
 
 #### Example
-Check out the project. It contains the usage of normal and in UITableViewCell.
+Check out the project. It contains the usages of normal way and in UITableViewCell.
 
 #### Code
 ```objc
@@ -52,12 +52,12 @@ Check out the project. It contains the usage of normal and in UITableViewCell.
 ```
 
 ### Tips
-When use with UITableViewCell in multi-line mode,it MUST be set preferredMaxLayoutWidth before invoking
+When uses with UITableViewCell in multi-line mode,it MUST be set preferredMaxLayoutWidth before invoking
 ```objc
 [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
 ```
 
-### Screenshot
+### Screenshots
 
 #### Normal
 ![](https://raw.github.com/zsk425/SKTagView/master/Screenshots/example.png)

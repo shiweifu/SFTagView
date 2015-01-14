@@ -48,11 +48,9 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
     cell.tagView.insets    = 15;
     cell.tagView.lineSpace = 10;
     
-    [cell.tagView.subviews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
-        [obj removeFromSuperview];
-    }];
+    [cell.tagView removeAllTags];
     
-    //添加Tags
+    //Add Tags
     [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];

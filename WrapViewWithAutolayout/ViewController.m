@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SKTag.h"
+#import "SKTagButton.h"
 #import "SKTagView.h"
 #import <Masonry/Masonry.h>
 #import <HexColors/HexColor.h>
@@ -15,6 +16,9 @@
 @interface ViewController ()
 @property (strong, nonatomic) SKTagView *tagView;
 @property (nonatomic, strong) NSArray *colorPool;
+
+
+@property (weak, nonatomic) IBOutlet UITextField *index;
 @end
 
 @implementation ViewController
@@ -45,7 +49,7 @@
         make.trailing.equalTo(superView.mas_trailing);
     }];
     
-    //添加Tags
+    //Add Tags
     [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];
@@ -61,9 +65,10 @@
      }];
 }
 
-- (void)handleBtn:(UIButton *)btn
+- (void)handleBtn:(SKTagButton *)btn
 {
-    NSLog(@"%@", btn.titleLabel.text);
+    //Remove tag
+    [self.tagView removeTag:btn.mTag];
 }
 
 #pragma mark - User interactions
@@ -80,6 +85,36 @@
     
     [self.tagView addTag:tag];
 }
+
+- (IBAction)onInsert:(id)sender
+{
+    SKTag *tag = [SKTag tagWithText:[NSString stringWithFormat:@"Insert(%ld)",(long)self.index.text.integerValue]];
+    tag.textColor = [UIColor whiteColor];
+    tag.fontSize = 15;
+    tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
+    tag.bgColor = [UIColor colorWithHexString:self.colorPool[arc4random() % self.colorPool.count]];
+    tag.target = self;
+    tag.action = @selector(handleBtn:);
+    tag.cornerRadius = 5;
+    
+    [self.tagView insertTag:tag atIndex:self.index.text.integerValue];
+}
+
+- (IBAction)onRemove:(id)sender
+{
+    [self.tagView removeTagAtIndex:self.index.text.integerValue];
+}
+
+- (IBAction)onRemoveAll:(id)sender
+{
+    [self.tagView removeAllTags];
+}
+
+- (IBAction)onTapBg:(id)sender
+{
+    [self.view endEditing:YES];
+}
+
 
 
 @end

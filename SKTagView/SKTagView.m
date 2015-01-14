@@ -1,7 +1,7 @@
 //
 //  SKTagView.m
 //
-//  Created by Shaokang Zhao on 01/12/15.
+//  Created by Shaokang Zhao on 15/1/12.
 //  Copyright (c) 2015 Shaokang Zhao. All rights reserved.
 //
 
@@ -29,6 +29,11 @@
 
 -(CGSize)intrinsicContentSize
 {
+    if (!self.tags.count)
+    {
+        return CGSizeZero;
+    }
+    
     NSArray *subviews = self.subviews;
     UIView *previewsView = nil;
     CGFloat leftOffset = self.padding.left;
@@ -40,7 +45,6 @@
     CGFloat currentX = leftOffset;
     CGFloat intrinsicHeight = topPadding;
     CGFloat intrinsicWidth = leftOffset;
-    
     
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0)
     {
@@ -103,17 +107,6 @@
     [super layoutSubviews];
 }
 
-#pragma mark - Public methods
-- (void)addTag:(SKTag *)tag
-{
-    SKTagButton *btn = [SKTagButton buttonWithTag:tag];
-    [self addSubview:btn];
-    [self.tags addObject:tag];
-    
-    self.didSetup = NO;
-    [self invalidateIntrinsicContentSize];
-}
-
 #pragma mark - Private methods
 -(void)updateWrappingConstrains
 {
@@ -141,7 +134,7 @@
     }];
     [self.tagsConstraints removeAllObjects];
     
-    //Reinstall
+    //Install new ones
     NSArray *subviews = self.subviews;
     UIView *previewsView = nil;
     UIView *superView = self;
@@ -258,6 +251,74 @@
         _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
         [self setNeedsUpdateConstraints];
     }
+}
+
+#pragma mark - Public methods
+- (void)addTag:(SKTag *)tag
+{
+    SKTagButton *btn = [SKTagButton buttonWithTag:tag];
+    [self addSubview:btn];
+    [self.tags addObject:tag];
+    
+    self.didSetup = NO;
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)insertTag:(SKTag *)tag atIndex:(NSUInteger)index
+{
+    if (index + 1 > self.tags.count)
+    {
+        [self addTag:tag];
+    }
+    else
+    {
+        SKTagButton *btn = [SKTagButton buttonWithTag:tag];
+        [self insertSubview:btn atIndex:index];
+        [self.tags insertObject:tag atIndex:index];
+        
+        self.didSetup = NO;
+        [self invalidateIntrinsicContentSize];
+    }
+}
+
+- (void)removeTag:(SKTag *)tag
+{
+    NSUInteger index = [self.tags indexOfObject:tag];
+    if (NSNotFound == index)
+    {
+        return;
+    }
+    
+    [self.tags removeObjectAtIndex:index];
+    [self.subviews[index] removeFromSuperview];
+    
+    self.didSetup = NO;
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)removeTagAtIndex:(NSUInteger)index
+{
+    if (index + 1 > self.tags.count)
+    {
+        return;
+    }
+    
+    [self.tags removeObjectAtIndex:index];
+    [self.subviews[index] removeFromSuperview];
+    
+    self.didSetup = NO;
+    [self invalidateIntrinsicContentSize];
+}
+
+- (void)removeAllTags
+{
+    [self.tags removeAllObjects];
+    [self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
+        [v removeFromSuperview];
+    }];
+    
+    self.didSetup = NO;
+    [self invalidateIntrinsicContentSize];
 }
 
 @end
