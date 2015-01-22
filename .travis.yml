@@ -1,0 +1,3 @@
+language: objective-c
+xcode_workspace: WrapViewWithAutolayout.xcworkspace 
+xcode_scheme: WrapViewWithAutolayoutTests 
