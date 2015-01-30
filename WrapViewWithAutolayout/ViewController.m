@@ -111,7 +111,6 @@
     [self.tagView removeAllTags];
   }
 
-
   SFTag *tag = [SFTag tagWithText:self.textField.text];
   tag.textColor = [UIColor tagTextColor];
   tag.bgColor = [UIColor tagBgColor];
@@ -120,7 +119,6 @@
   tag.cornerRadius = 3;
 
   NSUInteger fontSize = arc4random() % 30;
-
 
   tag.font = [UIFont systemFontOfSize:fontSize];
   tag.inset = 10;

@@ -1,4 +1,4 @@
-使用 AutoLayout 实现的 TagView，不用再使用CollectionView
+使用 View 实现的 Tag视图，不用再使用CollectionView
 
 
 ###使用说明
@@ -35,7 +35,6 @@
 
 
 ###TODO
- - Podspec
  - 旋转屏幕支持
 
 （本控件依赖 (PureLayout)[https://github.com/smileyborg/PureLayout] 布局库。）
