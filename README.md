@@ -72,4 +72,4 @@ When uses with UITableViewCell in multi-line mode,it MUST be set preferredMaxLay
 
 ### License
 
-AFNetworking is available under the MIT license. See the LICENSE file for more info.
+SKTagView is available under the MIT license. See the LICENSE file for more info.
