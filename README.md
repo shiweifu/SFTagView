@@ -31,6 +31,12 @@ Check out the project. It contains the usages of normal way and in UITableViewCe
     view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
     view.insets    = 5;
     view.lineSpace = 2;
+	__weak SKTagView *weakView = view;
+	//Handle tag's click event
+	view.didClickTagAtIndex = ^(NSUInteger index){
+		//Remove tag
+		[weakView removeTagAtIndex:index];
+	};
     view;
   });
   [self.view addSubview:self.tagView];
@@ -47,9 +53,9 @@ Check out the project. It contains the usages of normal way and in UITableViewCe
     SKTag *tag = [SKTag tagWithText:obj];
     tag.textColor = UIColor.whiteColor;
     tag.bgColor = UIColor.orangeColor;
-    tag.target = self;
-    tag.action = @selector(handleBtn:);
     tag.cornerRadius = 3;
+	tag.fontSize = 15;
+	tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
 
     [self.tagView addTag:tag];
   }];
