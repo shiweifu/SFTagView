@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "SKTag.h"
-#import "SKTagButton.h"
 #import "SKTagView.h"
 #import <Masonry/Masonry.h>
 #import <HexColors/HexColor.h>
@@ -16,7 +15,6 @@
 @interface ViewController ()
 @property (strong, nonatomic) SKTagView *tagView;
 @property (nonatomic, strong) NSArray *colorPool;
-
 
 @property (weak, nonatomic) IBOutlet UITextField *index;
 @end
@@ -39,6 +37,11 @@
         view.padding    = UIEdgeInsetsMake(12, 12, 12, 12);
         view.insets    = 15;
         view.lineSpace = 10;
+        __weak SKTagView *weakView = view;
+        view.didClickTagAtIndex = ^(NSUInteger index){
+            //Remove tag
+            [weakView removeTagAtIndex:index];
+        };
         view;
     });
     [self.view addSubview:self.tagView];
@@ -57,18 +60,10 @@
          tag.fontSize = 15;
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
          tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
-         tag.target = self;
-         tag.action = @selector(handleBtn:);
          tag.cornerRadius = 5;
          
          [self.tagView addTag:tag];
      }];
-}
-
-- (void)handleBtn:(SKTagButton *)btn
-{
-    //Remove tag
-    [self.tagView removeTag:btn.mTag];
 }
 
 #pragma mark - User interactions
@@ -79,8 +74,6 @@
     tag.fontSize = 15;
     tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
     tag.bgColor = [UIColor colorWithHexString:self.colorPool[arc4random() % self.colorPool.count]];
-    tag.target = self;
-    tag.action = @selector(handleBtn:);
     tag.cornerRadius = 5;
     
     [self.tagView addTag:tag];
@@ -93,8 +86,6 @@
     tag.fontSize = 15;
     tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
     tag.bgColor = [UIColor colorWithHexString:self.colorPool[arc4random() % self.colorPool.count]];
-    tag.target = self;
-    tag.action = @selector(handleBtn:);
     tag.cornerRadius = 5;
     
     [self.tagView insertTag:tag atIndex:self.index.text.integerValue];
@@ -114,7 +105,5 @@
 {
     [self.view endEditing:YES];
 }
-
-
 
 @end

@@ -115,7 +115,7 @@
         return;
     }
     
-    //Remove old ones
+    //Remove old constraints
     [self.tagsConstraints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         if([obj isKindOfClass:MASConstraint.class])
         {
@@ -134,7 +134,7 @@
     }];
     [self.tagsConstraints removeAllObjects];
     
-    //Install new ones
+    //Install new constraints
     NSArray *subviews = self.subviews;
     UIView *previewsView = nil;
     UIView *superView = self;
@@ -166,7 +166,7 @@
                 }
                 else
                 {
-                    //换行
+                    //new line
                     [view mas_makeConstraints:^(MASConstraintMaker *make)
                     {
                         SAVE_C(make.top.greaterThanOrEqualTo(previewsView.mas_bottom).with.offset(itemVerticalMargin));
@@ -205,7 +205,7 @@
             }
             else
             {
-                //第一次添加
+                //first one
                 [view mas_makeConstraints:^(MASConstraintMaker *make)
                  {
                      SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
@@ -253,10 +253,19 @@
     }
 }
 
+- (void)onTag:(UIButton *)btn
+{
+    if (self.didClickTagAtIndex)
+    {
+        self.didClickTagAtIndex([self.subviews indexOfObject:btn]);
+    }
+}
+
 #pragma mark - Public methods
 - (void)addTag:(SKTag *)tag
 {
     SKTagButton *btn = [SKTagButton buttonWithTag:tag];
+    [btn addTarget:self action:@selector(onTag:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
     [self.tags addObject:tag];
     
@@ -273,6 +282,7 @@
     else
     {
         SKTagButton *btn = [SKTagButton buttonWithTag:tag];
+        [btn addTarget:self action:@selector(onTag:) forControlEvents:UIControlEventTouchUpInside];
         [self insertSubview:btn atIndex:index];
         [self.tags insertObject:tag atIndex:index];
         

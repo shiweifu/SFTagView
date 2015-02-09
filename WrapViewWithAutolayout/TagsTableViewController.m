@@ -58,8 +58,6 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
          tag.fontSize = 15;
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
          tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
-         tag.target = self;
-         tag.action = @selector(handleBtn:);
          tag.cornerRadius = 5;
          
          [cell.tagView addTag:tag];
