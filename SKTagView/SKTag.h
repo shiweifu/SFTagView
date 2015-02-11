@@ -10,10 +10,16 @@
 
 @property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) UIColor *textColor;
+///backgound color
 @property (nonatomic, strong) UIColor *bgColor;
+///background image
+@property (nonatomic, strong) UIImage *bgImg;
 @property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic, strong) UIColor *borderColor;
+@property (nonatomic) CGFloat borderWidth;
+///like padding in css
 @property (nonatomic) UIEdgeInsets padding;
-@property (nonatomic) float fontSize;
+@property (nonatomic) CGFloat fontSize;
 
 - (instancetype)initWithText:(NSString *)text;
 + (instancetype)tagWithText:(NSString *)text;

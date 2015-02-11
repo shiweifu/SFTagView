@@ -12,12 +12,28 @@
 {
     SKTagButton *btn = [super buttonWithType:UIButtonTypeSystem];
     [btn setTitle:tag.text forState:UIControlStateNormal];
+    [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:tag.fontSize];
     btn.backgroundColor = tag.bgColor;
+    btn.contentEdgeInsets = tag.padding;
+    
+    if (tag.bgImg)
+    {
+        [btn setBackgroundImage:tag.bgImg forState:UIControlStateNormal];
+    }
+    
+    if (tag.borderColor)
+    {
+        btn.layer.borderColor = tag.borderColor.CGColor;
+    }
+    
+    if (tag.borderWidth)
+    {
+        btn.layer.borderWidth = tag.borderWidth;
+    }
+    
     btn.layer.cornerRadius = tag.cornerRadius;
     btn.layer.masksToBounds = YES;
-    [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
-    [btn setContentEdgeInsets:tag.padding];
     
     return btn;
 }
