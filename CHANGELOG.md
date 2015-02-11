@@ -1,3 +1,6 @@
+###v0.4
+Support to set bgImg,borderColor,borderWidth.
+
 ###v0.3
 Use block to handle tag's click event.
 ```objc
