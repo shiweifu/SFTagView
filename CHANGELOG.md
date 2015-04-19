@@ -1,3 +1,6 @@
+###v0.5
+Support to set the userInteractionEnabled of tag.
+
 ###v0.4
 Support to set bgImg,borderColor,borderWidth.
 
