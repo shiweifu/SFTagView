@@ -6,7 +6,6 @@
 //
 
 #import "SKTagView.h"
-#import "SKTag.h"
 #import "SKTagButton.h"
 #import <Masonry/Masonry.h>
 
@@ -116,22 +115,24 @@
     }
     
     //Remove old constraints
-    [self.tagsConstraints enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+    for (id obj in self.tagsConstraints)
+    {
         if([obj isKindOfClass:MASConstraint.class])
         {
             [(MASConstraint *)obj uninstall];
         }
         else if([obj isKindOfClass:NSArray.class])
         {
-            [(NSArray *)obj enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [(MASConstraint *)obj uninstall];
-            }];
+            for (MASConstraint * constraint in (NSArray *)obj)
+            {
+                [constraint uninstall];
+            }
         }
         else
         {
-            NSAssert(NO, @"Error:unknown class type:%@",obj);
+            NSAssert(NO, @"Error:unknown class type: %@",obj);
         }
-    }];
+    }
     [self.tagsConstraints removeAllObjects];
     
     //Install new constraints
@@ -323,9 +324,10 @@
 - (void)removeAllTags
 {
     [self.tags removeAllObjects];
-    [self.subviews enumerateObjectsUsingBlock:^(UIView *v, NSUInteger idx, BOOL *stop) {
+    for (UIView *v in self.subviews)
+    {
         [v removeFromSuperview];
-    }];
+    }
     
     self.didSetup = NO;
     [self invalidateIntrinsicContentSize];

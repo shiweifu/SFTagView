@@ -12,10 +12,11 @@
     self = [super init];
     if (self)
     {
-        _text          = text;
-        self.fontSize  = 15;
-        self.textColor = [UIColor blackColor];
-        self.bgColor   = [UIColor whiteColor];
+        _text = text;
+        _fontSize = 15;
+        _textColor = [UIColor blackColor];
+        _bgColor = [UIColor whiteColor];
+        _enable = YES;
     }
     
     return self;

@@ -32,6 +32,8 @@
         btn.layer.borderWidth = tag.borderWidth;
     }
     
+    btn.userInteractionEnabled = tag.enable;
+    
     btn.layer.cornerRadius = tag.cornerRadius;
     btn.layer.masksToBounds = YES;
     

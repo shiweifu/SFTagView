@@ -20,6 +20,8 @@
 ///like padding in css
 @property (nonatomic) UIEdgeInsets padding;
 @property (nonatomic) CGFloat fontSize;
+///default:YES
+@property (nonatomic) BOOL enable;
 
 - (instancetype)initWithText:(NSString *)text;
 + (instancetype)tagWithText:(NSString *)text;
