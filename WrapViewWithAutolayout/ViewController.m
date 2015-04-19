@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "SKTag.h"
 #import "SKTagView.h"
 #import <Masonry/Masonry.h>
 #import <HexColors/HexColor.h>
@@ -21,7 +20,8 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];

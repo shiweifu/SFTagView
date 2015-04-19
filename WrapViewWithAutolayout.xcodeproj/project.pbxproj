@@ -110,14 +110,14 @@
 				682ABA721A36933300D57A1A /* AppDelegate.m */,
 				682ABA741A36933300D57A1A /* ViewController.h */,
 				682ABA751A36933300D57A1A /* ViewController.m */,
-				682ABA771A36933300D57A1A /* Main.storyboard */,
-				682ABA7C1A36933300D57A1A /* LaunchScreen.xib */,
-				682ABA7A1A36933300D57A1A /* Images.xcassets */,
-				682ABA6D1A36933300D57A1A /* Supporting Files */,
 				D865CB901A6415B200F3592C /* TagsTableViewController.h */,
 				D865CB911A6415B200F3592C /* TagsTableViewController.m */,
 				D865CB931A64160500F3592C /* TagsTableCell.h */,
 				D865CB941A64160500F3592C /* TagsTableCell.m */,
+				682ABA771A36933300D57A1A /* Main.storyboard */,
+				682ABA7C1A36933300D57A1A /* LaunchScreen.xib */,
+				682ABA7A1A36933300D57A1A /* Images.xcassets */,
+				682ABA6D1A36933300D57A1A /* Supporting Files */,
 			);
 			path = WrapViewWithAutolayout;
 			sourceTree = "<group>";

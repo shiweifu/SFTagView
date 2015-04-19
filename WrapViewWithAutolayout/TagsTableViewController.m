@@ -8,7 +8,6 @@
 
 #import "TagsTableViewController.h"
 #import "TagsTableCell.h"
-#import "SKTag.h"
 #import "SKTagView.h"
 #import <HexColors/HexColor.h>
 
@@ -17,13 +16,19 @@
 //Cell
 static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 
+
+@interface UIImage (SKTagView)
++ (UIImage *)imageWithColor:(UIColor *)color;
+@end
+
 @interface TagsTableViewController ()
 @property (nonatomic, strong) NSArray *colorPool;
 @end
 
 @implementation TagsTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
@@ -32,12 +37,8 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
 
@@ -57,8 +58,9 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
          tag.textColor = [UIColor whiteColor];
          tag.fontSize = 15;
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
-         tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
+         tag.bgImg = [UIImage imageWithColor:[UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]]];
          tag.cornerRadius = 5;
+         tag.enable = NO;
          
          [cell.tagView addTag:tag];
      }];
@@ -75,7 +77,8 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TagsTableCell *cell = nil;
-    if (!cell) {
+    if (!cell)
+    {
         cell = [tableView dequeueReusableCellWithIdentifier:kTagsTableCellReuseIdentifier];
     }
     
@@ -83,10 +86,34 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
     return [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 #pragma mark - User interactions
 - (void)handleBtn:(id)sender
 {
     NSLog(@"Tapped me");
+}
+
+@end
+
+@implementation UIImage (SKTagView)
+
++ (UIImage *)imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
