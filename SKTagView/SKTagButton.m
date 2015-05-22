@@ -13,7 +13,7 @@
     SKTagButton *btn = [super buttonWithType:UIButtonTypeSystem];
     [btn setTitle:tag.text forState:UIControlStateNormal];
     [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:tag.fontSize];
+    btn.titleLabel.font = tag.font ?: [UIFont systemFontOfSize:tag.fontSize];
     btn.backgroundColor = tag.bgColor;
     btn.contentEdgeInsets = tag.padding;
     

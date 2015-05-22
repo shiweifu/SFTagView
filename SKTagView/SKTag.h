@@ -19,6 +19,8 @@
 @property (nonatomic) CGFloat borderWidth;
 ///like padding in css
 @property (nonatomic) UIEdgeInsets padding;
+@property (nonatomic, strong) UIFont *font;
+///if no font is specified, system font with fontSize is used
 @property (nonatomic) CGFloat fontSize;
 ///default:YES
 @property (nonatomic) BOOL enable;
