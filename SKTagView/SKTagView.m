@@ -151,6 +151,11 @@
     {
         for (UIView *view in subviews)
         {
+            [view mas_makeConstraints:^(MASConstraintMaker *make)
+             {
+                 SAVE_C(make.width.lessThanOrEqualTo(superView).with.insets(UIEdgeInsetsMake(0, leftOffset, 0, rightOffset)));
+             }];
+            
             CGSize size = view.intrinsicContentSize;
             if (previewsView)
             {

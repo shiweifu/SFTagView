@@ -16,6 +16,7 @@
     btn.titleLabel.font = tag.font ?: [UIFont systemFontOfSize:tag.fontSize];
     btn.backgroundColor = tag.bgColor;
     btn.contentEdgeInsets = tag.padding;
+    btn.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
     if (tag.bgImg)
     {
