@@ -53,11 +53,12 @@
     }];
     
     //Add Tags
-    [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
+    [@[@"Python", @"Javascript", @"Python", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
      {
          SKTag *tag = [SKTag tagWithText:obj];
          tag.textColor = [UIColor whiteColor];
          tag.fontSize = 15;
+         //tag.font = [UIFont fontWithName:@"Courier" size:15];
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
          tag.bgColor = [UIColor colorWithHexString:self.colorPool[idx % self.colorPool.count]];
          tag.cornerRadius = 5;

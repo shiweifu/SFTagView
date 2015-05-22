@@ -153,7 +153,7 @@
         {
             [view mas_makeConstraints:^(MASConstraintMaker *make)
              {
-                 SAVE_C(make.width.lessThanOrEqualTo(superView).with.insets(UIEdgeInsetsMake(0, leftOffset, 0, rightOffset)));
+                 SAVE_C(make.trailing.lessThanOrEqualTo(superView).with.offset(-rightOffset));
              }];
             
             CGSize size = view.intrinsicContentSize;
