@@ -1,8 +1,13 @@
+###v0.6
+Add support to set the font.
+
+Fix bug when tag's title is too long.
+
 ###v0.5
-Support to set the userInteractionEnabled of tag.
+Add support to set the userInteractionEnabled of tag.
 
 ###v0.4
-Support to set bgImg,borderColor,borderWidth.
+Add support to set bgImg,borderColor,borderWidth.
 
 ###v0.3
 Use block to handle tag's click event.
@@ -12,7 +17,6 @@ Use block to handle tag's click event.
 ```
 
 ###v0.2
-
 Add new methods:
 ```objc
 - (void)insertTag:(SKTag *)tag atIndex:(NSUInteger)index;
