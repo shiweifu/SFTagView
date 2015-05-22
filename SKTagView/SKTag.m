@@ -13,6 +13,7 @@
     if (self)
     {
         _text = text;
+        _font = nil;
         _fontSize = 15;
         _textColor = [UIColor blackColor];
         _bgColor = [UIColor whiteColor];
