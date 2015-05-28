@@ -1,13 +1,16 @@
-###v0.6
-Add support to set the font.
+###v0.7
+Added support for attributed strings
 
-Fix bug when tag's title is too long.
+###v0.6
+Added support for setting the font.
+
+Fixed bug when tag's title is too long.
 
 ###v0.5
-Add support to set the userInteractionEnabled of tag.
+Added support for setting the userInteractionEnabled of tag.
 
 ###v0.4
-Add support to set bgImg,borderColor,borderWidth.
+Added support for setting bgImg,borderColor,borderWidth.
 
 ###v0.3
 Use block to handle tag's click event.
