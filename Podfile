@@ -4,11 +4,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 inhibit_all_warnings!
 
-target "WrapViewWithAutolayout" do
+target "SKTagView" do
 pod 'Masonry'
 pod 'HexColors'
 end
 
-target "WrapViewWithAutolayoutTests" do
+target "SKTagViewTests" do
 end
 
