@@ -35,7 +35,26 @@
   [btn setTitleColor:tag.textColor forState:UIControlStateNormal];
   [btn addTarget:tag.target action:tag.action forControlEvents:UIControlEventTouchUpInside];
 
-  CGSize size = [tag.text sizeWithFont:tag.font];
+    
+    CGSize size;
+    CGSize constraintSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
+#ifdef __IPHONE_7_0
+    NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [paragraphStyle setAlignment:NSTextAlignmentLeft];
+    [paragraphStyle setLineBreakMode:NSLineBreakByCharWrapping];
+    
+    NSDictionary* stringAttributes = @{NSFontAttributeName: tag.font,
+                                       NSParagraphStyleAttributeName: paragraphStyle};
+    size = [tag.text boundingRectWithSize: constraintSize
+                                  options: NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
+                               attributes: stringAttributes
+                                  context: nil].size;
+#else
+    size = [tag.text sizeWithFont: tag.font
+                constrainedToSize: constraintSize
+                    lineBreakMode: NSLineBreakByCharWrapping];
+#endif
+    
   CGFloat i = tag.inset;
   if(i == 0)
   {
