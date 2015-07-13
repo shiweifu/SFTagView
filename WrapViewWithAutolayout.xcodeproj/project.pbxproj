@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B552D247ECEC28125DC8E5B /* libPods-WrapViewWithAutolayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C06A50A78EFF632557FD24 /* libPods-WrapViewWithAutolayout.a */; };
 		682ABA701A36933300D57A1A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA6F1A36933300D57A1A /* main.m */; };
 		682ABA731A36933300D57A1A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA721A36933300D57A1A /* AppDelegate.m */; };
 		682ABA761A36933300D57A1A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682ABA751A36933300D57A1A /* ViewController.m */; };
@@ -60,7 +59,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B552D247ECEC28125DC8E5B /* libPods-WrapViewWithAutolayout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +266,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "";
 			showEnvVarsInLog = 0;
 		};
 		FAE40ECF28B915D0419B9B28 /* Copy Pods Resources */ = {
@@ -283,7 +281,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WrapViewWithAutolayout/Pods-WrapViewWithAutolayout-resources.sh\"\n";
+			shellScript = "";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

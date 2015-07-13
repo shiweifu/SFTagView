@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "SFTag.h"
 #import "SFTagView.h"
-#import "ALView+PureLayout.h"
 
 @interface ViewController ()
 @property (strong, nonatomic) SFTagView *tagView;
@@ -52,9 +51,6 @@
 - (void)setupTagView
 {
   [self.view addSubview:self.tagView];
-//  [self.tagView autoCenterInSuperview];
-//  [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeLeading];
-//  [self.tagView autoPinEdgeToSuperviewEdge:ALEdgeTrailing];
 }
 
 - (void)handleBtn:(UIButton *)btn

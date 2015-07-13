@@ -8,7 +8,6 @@
 
 #import "SFTagView.h"
 #import "SFTag.h"
-#import "ALView+PureLayout.h"
 #import "SFTagButton.h"
 
 @interface SFTagView ()

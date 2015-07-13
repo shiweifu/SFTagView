@@ -1,5 +1,7 @@
 使用 View 实现的 Tag视图，不用再使用CollectionView
 
+时过境迁，因为性能和复用性的考虑，本库去掉使用AutoLayout来实现，如果你想使用AutoLayout版，可以使用这个：[https://github.com/zsk425/SKTagView](https://github.com/zsk425/SKTagView)
+
 
 ###使用说明
 
@@ -31,10 +33,6 @@
 ![预览图][1]
 
 
-  [1]: http://leanote.com/file/outputImage?fileId=5487869e38f41171fd000263
+  [1]: http://i3.tietuku.com/f55315bbb964ce21.jpg
 
 
-###TODO
- - 旋转屏幕支持
-
-（本控件依赖 (PureLayout)[https://github.com/smileyborg/PureLayout] 布局库。）

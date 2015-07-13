@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SFTagView"
-  s.version      = "0.6"
+  s.version      = "0.8"
   s.summary      = "SFTagView is a powerful UIView subclass"
 
   s.description  = <<-DESC
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.author       = { "shiweifu" => "shiweifu@gmail.com" }
 
   s.ios.deployment_target = "7.0"
-  s.source       = { :git => "https://github.com/shiweifu/SFTagView.git", :tag => "0.6" }
+  s.source       = { :git => "https://github.com/shiweifu/SFTagView.git", :tag => "0.8" }
 
   s.source_files  = "WrapViewWithAutolayout/*.{h,m}"
   s.exclude_files = "WrapViewWithAutolayout/AppDelegate.{h,m}", "WrapViewWithAutolayout/ViewController.{h,m}", "WrapViewWithAutolayout/main.m"
@@ -25,6 +25,5 @@ Pod::Spec.new do |s|
   
   s.requires_arc = true
 
-  s.dependency "PureLayout"
 
 end
