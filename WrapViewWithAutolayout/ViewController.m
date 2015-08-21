@@ -14,6 +14,9 @@
 @property (strong, nonatomic) SFTagView *tagView;
 
 @property (nonatomic, strong) UIView *testView;
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+
 @end
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
@@ -28,24 +31,18 @@
   [self setupTagView];
   [self setupData];
 
-  UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(120, 300, 50, 44)];
-  [btn addTarget:self action:@selector(handleAddTag:) forControlEvents:UIControlEventTouchUpInside];
-  [btn setTitle:@"hello" forState:UIControlStateNormal];
-  [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-  [self.view addSubview:btn];
+  SFTagView *v = [[SFTagView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
+  [v addTag:[[SFTag alloc] initWithText:@"hello"]];
 
-  self.textField = [[UITextField alloc] initWithFrame:CGRectMake(150, 400, 100, 44)];
-  [self.view addSubview:self.textField];
-
-  [self.textField.layer setBorderColor:UIColorFromRGB(0x1f8dd6).CGColor];
-  [self.textField.layer setBorderWidth:2];
-
-
-
-
-  self.tagView.margin    = UIEdgeInsetsMake(10, 3, 10, 3);
-  self.tagView.insets    = 20;
-  self.tagView.lineSpace = 5;
+  NSLog(@"tagView frame: %@", NSStringFromCGRect(v.frame));
 }
 
 - (void)setupTagView
@@ -67,9 +64,12 @@
 {
   if(!_tagView)
   {
-//    _tagView = [SFTagView newAutoLayoutView];
     _tagView = [[SFTagView alloc] initWithFrame:CGRectMake(0, 20, 320, 0)];
     [_tagView setBackgroundColor:[UIColor blueColor]];
+
+    _tagView.margin    = UIEdgeInsetsMake(10, 3, 10, 3);
+    _tagView.insets    = 20;
+    _tagView.lineSpace = 5;
   }
 
   return _tagView;
@@ -79,7 +79,6 @@
 {
   [super viewDidLayoutSubviews];
 }
-
 
 - (void)setupData
 {
@@ -96,8 +95,6 @@
 
     [self.tagView addTag:tag];
   }];
-
-
 }
 
 - (IBAction)handleAddTag:(id)sender
@@ -120,6 +117,7 @@
   tag.inset = 10;
 
   [self.tagView addTag:tag];
+  NSLog(@"tagView frame: %@", NSStringFromCGRect(self.tagView.frame));
 }
 @end
 

@@ -107,6 +107,7 @@
 
 - (void)rearrangeTags
 {
+  self.intrinsicHeight = 0;
   [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
     [obj removeFromSuperview];
   }];

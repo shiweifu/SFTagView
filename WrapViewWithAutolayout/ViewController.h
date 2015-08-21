@@ -10,9 +10,6 @@
 
 @interface ViewController : UIViewController
 
-
-@property (nonatomic, strong) UITextField *textField;
-
 - (IBAction)handleAddTag:(id)sender;
 @end
 
