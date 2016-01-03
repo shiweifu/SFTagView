@@ -1,3 +1,6 @@
+###v0.8
+Rename insets, lineSpace and didClickTagAtIndex to interitemSpacing, lineSpacing and didTapTagAtIndex.
+
 ###v0.7
 Added support for attributed strings
 
