@@ -49,14 +49,14 @@
 }
 
 - (void)testTagViewSetLineSpace {
-    self.tagView.lineSpace = 10;
-    XCTAssertEqual(self.tagView.lineSpace, 10);
+    self.tagView.lineSpacing = 10;
+    XCTAssertEqual(self.tagView.lineSpacing, 10);
 }
 
 - (void)testTagViewSetInsets {
     
-    self.tagView.insets = 10;
-    XCTAssertEqual(self.tagView.insets, 10);
+    self.tagView.interitemSpacing = 10;
+    XCTAssertEqual(self.tagView.interitemSpacing, 10);
 }
 
 - (void)testTagViewPreferredMaxLayoutWidth {
