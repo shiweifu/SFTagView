@@ -261,7 +261,8 @@
 
 - (void)onTag:(UIButton *)btn
 {
-    if (self.didClickTagAtIndex)
+    NSParameterAssert(btn);
+    if (self.didClickTagAtIndex && btn)
     {
         self.didClickTagAtIndex([self.subviews indexOfObject:btn]);
     }
@@ -270,10 +271,14 @@
 #pragma mark - Public methods
 - (void)addTag:(SKTag *)tag
 {
+    NSParameterAssert(tag);
     SKTagButton *btn = [SKTagButton buttonWithTag:tag];
     [btn addTarget:self action:@selector(onTag:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:btn];
-    [self.tags addObject:tag];
+    if (tag)
+    {
+        [self.tags addObject:tag];
+    }
     
     self.didSetup = NO;
     [self invalidateIntrinsicContentSize];
@@ -299,6 +304,11 @@
 
 - (void)removeTag:(SKTag *)tag
 {
+    if (tag == nil)
+    {
+        return;
+    }
+    
     NSUInteger index = [self.tags indexOfObject:tag];
     if (NSNotFound == index)
     {
@@ -306,7 +316,10 @@
     }
     
     [self.tags removeObjectAtIndex:index];
-    [self.subviews[index] removeFromSuperview];
+    if (self.subviews.count > index)
+    {
+        [self.subviews[index] removeFromSuperview];
+    }
     
     self.didSetup = NO;
     [self invalidateIntrinsicContentSize];
@@ -320,7 +333,10 @@
     }
     
     [self.tags removeObjectAtIndex:index];
-    [self.subviews[index] removeFromSuperview];
+    if (self.subviews.count > index)
+    {
+        [self.subviews[index] removeFromSuperview];
+    }
     
     self.didSetup = NO;
     [self invalidateIntrinsicContentSize];
