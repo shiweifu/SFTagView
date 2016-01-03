@@ -10,19 +10,18 @@
 
 @interface SKTagView : UIView
 
-@property (nonatomic) UIEdgeInsets padding;
-@property (nonatomic) int lineSpace;
-@property (nonatomic) CGFloat insets;
-@property (nonatomic) CGFloat preferredMaxLayoutWidth;
-@property (nonatomic) BOOL singleLine;
+@property (assign, nonatomic) UIEdgeInsets padding;
+@property (assign, nonatomic) CGFloat lineSpacing;
+@property (assign, nonatomic) CGFloat insets;
+@property (assign, nonatomic) CGFloat preferredMaxLayoutWidth;
+@property (assign, nonatomic) BOOL singleLine;
+@property (copy, nonatomic, nullable) void (^didTapTagAtIndex)(NSUInteger index);
 
-- (void)addTag:(SKTag *)tag;
-- (void)insertTag:(SKTag *)tag atIndex:(NSUInteger)index;
-- (void)removeTag:(SKTag *)tag;
-- (void)removeTagAtIndex:(NSUInteger)index;
+- (void)addTag: (nonnull SKTag *)tag;
+- (void)insertTag: (nonnull SKTag *)tag atIndex:(NSUInteger)index;
+- (void)removeTag: (nonnull SKTag *)tag;
+- (void)removeTagAtIndex: (NSUInteger)index;
 - (void)removeAllTags;
-
-@property (nonatomic, copy) void (^didClickTagAtIndex)(NSUInteger index);
 
 @end
 

@@ -13,52 +13,42 @@
 
 #define SCREEN_WIDTH    ([UIScreen mainScreen].bounds.size.width)
 
-//Cell
+//Reuse identifier
 static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 
-
 @interface UIImage (SKTagView)
-+ (UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)imageWithColor: (UIColor *)color;
 @end
 
 @interface TagsTableViewController ()
-@property (nonatomic, strong) NSArray *colorPool;
+@property (nonatomic, strong) NSArray *colors;
 @end
 
 @implementation TagsTableViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.colorPool = @[@"#7ecef4", @"#84ccc9", @"#88abda",@"#7dc1dd",@"#b6b8de"];
-    
+    self.colors = @[@"#7ecef4", @"#84ccc9", @"#88abda", @"#7dc1dd", @"#b6b8de"];
     self.tableView.tableFooterView = [UIView new];
 }
 
-#pragma mark - Table view data source
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
-- (void)configureCell:(TagsTableCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
+#pragma mark - UITableViewDataSource
+- (void)configureCell: (TagsTableCell *)cell atIndexPath: (NSIndexPath *)indexPath {
     cell.tagView.preferredMaxLayoutWidth = SCREEN_WIDTH;
-    cell.tagView.padding    = UIEdgeInsetsMake(12, 12, 12, 12);
-    cell.tagView.insets    = 15;
-    cell.tagView.lineSpace = 10;
+    cell.tagView.padding = UIEdgeInsetsMake(12, 12, 12, 12);
+    cell.tagView.insets = 15;
+    cell.tagView.lineSpacing = 10;
     
     [cell.tagView removeAllTags];
     
     //Add Tags
-    [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-     {
+    [@[@"Python", @"Javascript", @"Swift", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
          SKTag *tag = [SKTag tagWithText:obj];
          tag.textColor = [UIColor whiteColor];
          tag.fontSize = 15;
          tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
-         tag.bgImg = [UIImage imageWithColor:[UIColor hx_colorWithHexString:self.colorPool[idx % self.colorPool.count]]];
+         tag.bgImg = [UIImage imageWithColor: [UIColor hx_colorWithHexString: self.colors[idx % self.colors.count]]];
          tag.cornerRadius = 5;
          tag.enable = NO;
          
@@ -68,41 +58,30 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TagsTableCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagsTableCellReuseIdentifier forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
-    
+    [self configureCell: cell atIndexPath:indexPath];
     return cell;
 }
 
-#pragma mark - Table view delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    TagsTableCell *cell = nil;
-    if (!cell)
-    {
-        cell = [tableView dequeueReusableCellWithIdentifier:kTagsTableCellReuseIdentifier];
-    }
-    
-    [self configureCell:cell atIndexPath:indexPath];
-    return [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath {
+    TagsTableCell *cell = [tableView dequeueReusableCellWithIdentifier: kTagsTableCellReuseIdentifier forIndexPath: indexPath];
+    [self configureCell: cell atIndexPath: indexPath];
+    return [cell.contentView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize].height + 1;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+- (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath: (NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath: indexPath animated:YES];
 }
 
 #pragma mark - User interactions
-- (void)handleBtn:(id)sender
-{
-    NSLog(@"Tapped me");
+- (void)handleBtn:(id)sender {
+    NSLog(@"Tap");
 }
-
 @end
 
 @implementation UIImage (SKTagView)
 
-+ (UIImage *)imageWithColor:(UIColor *)color
-{
++ (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();

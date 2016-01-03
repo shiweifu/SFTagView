@@ -7,6 +7,6 @@
 #import <UIKit/UIKit.h>
 
 @class SKTag;
-@interface SKTagButton : UIButton
-+ (instancetype)buttonWithTag:(SKTag *)tag;
+@interface SKTagButton: UIButton
++ (nonnull instancetype)buttonWithTag: (nonnull SKTag *)tag;
 @end

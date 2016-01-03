@@ -8,25 +8,25 @@
 
 @interface SKTag : NSObject
 
-@property (nonatomic, copy) NSString *text;
-@property (nonatomic, copy) NSAttributedString *attributedText;
-@property (nonatomic, strong) UIColor *textColor;
+@property (copy, nonatomic, nullable) NSString *text;
+@property (copy, nonatomic, nullable) NSAttributedString *attributedText;
+@property (strong, nonatomic, nullable) UIColor *textColor;
 ///backgound color
-@property (nonatomic, strong) UIColor *bgColor;
+@property (strong, nonatomic, nullable) UIColor *bgColor;
 ///background image
-@property (nonatomic, strong) UIImage *bgImg;
-@property (nonatomic) CGFloat cornerRadius;
-@property (nonatomic, strong) UIColor *borderColor;
-@property (nonatomic) CGFloat borderWidth;
+@property (strong, nonatomic, nullable) UIImage *bgImg;
+@property (assign, nonatomic) CGFloat cornerRadius;
+@property (strong, nonatomic, nullable) UIColor *borderColor;
+@property (assign, nonatomic) CGFloat borderWidth;
 ///like padding in css
-@property (nonatomic) UIEdgeInsets padding;
-@property (nonatomic, strong) UIFont *font;
+@property (assign, nonatomic) UIEdgeInsets padding;
+@property (strong, nonatomic, nullable) UIFont *font;
 ///if no font is specified, system font with fontSize is used
-@property (nonatomic) CGFloat fontSize;
+@property (assign, nonatomic) CGFloat fontSize;
 ///default:YES
-@property (nonatomic) BOOL enable;
+@property (assign, nonatomic) BOOL enable;
 
-- (instancetype)initWithText:(NSString *)text;
-+ (instancetype)tagWithText:(NSString *)text;
+- (nonnull instancetype)initWithText: (nonnull NSString *)text;
++ (nonnull instancetype)tagWithText: (nonnull NSString *)text;
 
 @end
