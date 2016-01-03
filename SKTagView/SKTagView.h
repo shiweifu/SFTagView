@@ -12,7 +12,7 @@
 
 @property (assign, nonatomic) UIEdgeInsets padding;
 @property (assign, nonatomic) CGFloat lineSpacing;
-@property (assign, nonatomic) CGFloat insets;
+@property (assign, nonatomic) CGFloat interitemSpacing;
 @property (assign, nonatomic) CGFloat preferredMaxLayoutWidth;
 @property (assign, nonatomic) BOOL singleLine;
 @property (copy, nonatomic, nullable) void (^didTapTagAtIndex)(NSUInteger index);

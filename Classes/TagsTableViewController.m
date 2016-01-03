@@ -37,7 +37,7 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 - (void)configureCell: (TagsTableCell *)cell atIndexPath: (NSIndexPath *)indexPath {
     cell.tagView.preferredMaxLayoutWidth = SCREEN_WIDTH;
     cell.tagView.padding = UIEdgeInsetsMake(12, 12, 12, 12);
-    cell.tagView.insets = 15;
+    cell.tagView.interitemSpacing = 15;
     cell.tagView.lineSpacing = 10;
     
     [cell.tagView removeAllTags];

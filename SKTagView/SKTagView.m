@@ -35,9 +35,9 @@
     CGFloat leftOffset = self.padding.left;
     CGFloat bottomOffset = self.padding.bottom;
     CGFloat rightOffset = self.padding.right;
-    CGFloat itemMargin = self.insets;
+    CGFloat itemSpacing = self.interitemSpacing;
     CGFloat topPadding = self.padding.top;
-    CGFloat itemVerticalMargin = self.lineSpacing;
+    CGFloat lineSpacing = self.lineSpacing;
     CGFloat currentX = leftOffset;
     CGFloat intrinsicHeight = topPadding;
     CGFloat intrinsicWidth = leftOffset;
@@ -48,7 +48,7 @@
             CGSize size = view.intrinsicContentSize;
             if (previousView) {
                 CGFloat width = size.width;
-                currentX += itemMargin;
+                currentX += itemSpacing;
                 if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth) {
                     currentX += size.width;
                 } else {
@@ -65,13 +65,13 @@
             intrinsicWidth = MAX(intrinsicWidth, currentX + rightOffset);
         }
         
-        intrinsicHeight += bottomOffset + itemVerticalMargin * (lineCount - 1);
+        intrinsicHeight += bottomOffset + lineSpacing * (lineCount - 1);
     } else {
         for (UIView *view in subviews) {
             CGSize size = view.intrinsicContentSize;
             intrinsicWidth += size.width;
         }
-        intrinsicWidth += itemMargin * (subviews.count - 1) + rightOffset;
+        intrinsicWidth += itemSpacing * (subviews.count - 1) + rightOffset;
         intrinsicHeight += ((UIView *)subviews.firstObject).intrinsicContentSize.height + bottomOffset;
     }
     
@@ -113,9 +113,9 @@
     CGFloat leftOffset = self.padding.left;
     CGFloat bottomOffset = self.padding.bottom;
     CGFloat rightOffset = self.padding.right;
-    CGFloat itemMargin = self.insets;
+    CGFloat itemSpacing = self.interitemSpacing;
     CGFloat topPadding = self.padding.top;
-    CGFloat itemVerticalMargin = self.lineSpacing;
+    CGFloat lineSpacing = self.lineSpacing;
     CGFloat currentX = leftOffset;
     
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0) {
@@ -127,16 +127,16 @@
             CGSize size = view.intrinsicContentSize;
             if (previousView) {
                 CGFloat width = size.width;
-                currentX += itemMargin;
+                currentX += itemSpacing;
                 if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth) {
                     [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                        SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemMargin));
+                        SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemSpacing));
                         SAVE_C(make.centerY.equalTo(previousView.mas_centerY));
                     }];
                     currentX += size.width;
                 } else {
                     [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                        SAVE_C(make.top.greaterThanOrEqualTo(previousView.mas_bottom).with.offset(itemVerticalMargin));
+                        SAVE_C(make.top.greaterThanOrEqualTo(previousView.mas_bottom).with.offset(lineSpacing));
                         SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
                     }];
                     currentX = leftOffset + size.width;
@@ -156,7 +156,7 @@
             CGSize size = view.intrinsicContentSize;
             if (previousView) {
                 [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                     SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemMargin));
+                     SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemSpacing));
                      SAVE_C(make.centerY.equalTo(previousView.mas_centerY));
                  }];
                 currentX += size.width;

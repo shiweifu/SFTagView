@@ -32,7 +32,7 @@
         SKTagView *view = [SKTagView new];
         view.backgroundColor = [UIColor whiteColor];
         view.padding = UIEdgeInsetsMake(12, 12, 12, 12);
-        view.insets = 15;
+        view.interitemSpacing = 15;
         view.lineSpacing = 10;
         __weak SKTagView *weakView = view;
         view.didTapTagAtIndex = ^(NSUInteger index){
