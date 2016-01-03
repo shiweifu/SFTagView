@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/SKTagView.svg?style=flat-square)](http://cocoadocs.org/docsets/SKTagView)
 [![Platform](https://img.shields.io/cocoapods/p/SKTagView.svg?style=flat-square)](http://cocoadocs.org/docsets/SKTagView)
 
-This library is derived from [SFTagView](https://github.com/shiweifu/SFTagView),which tries to build a view displaying tags without using UICollectionView and supports auto layout.It's a good beginning,but not good enough.
+This library is derived from [SFTagView](https://github.com/shiweifu/SFTagView), which tries to build a view displaying tags without using UICollectionView and supports auto layout.
 
-So I tried to make it more auto layout.After having tried a lot,I inspired by UILabel.Now it just works like UILabel and supports single line and multi-line.
+I tried to make it more auto layout. After having tried a lot, I inspired by UILabel. Now it just works like UILabel and supports single line and multi-line mode.
 
 ### Installation with CocoaPods
 
@@ -27,30 +27,27 @@ Check out the project. It contains the usages of normal way and in UITableViewCe
 {
   self.tagView = ({
     SKTagView *view = [SKTagView new];
-    view.backgroundColor = UIColor.cyanColor;
-    view.padding    = UIEdgeInsetsMake(10, 25, 10, 25);
-    view.insets    = 5;
-    view.lineSpace = 2;
+    view.backgroundColor = [UIColor whiteColor];
+    view.padding = UIEdgeInsetsMake(10, 25, 10, 25);
+    view.interitemSpacing = 5;
+    view.lineSpacing = 2;
 	__weak SKTagView *weakView = view;
-	//Handle tag's click event
-	view.didClickTagAtIndex = ^(NSUInteger index){
-		//Remove tag
-		[weakView removeTagAtIndex:index];
+	//Handle tag's tap event
+	view.didTapTagAtIndex = ^(NSUInteger index){
+		NSLog(@"Tap");
 	};
     view;
   });
   [self.view addSubview:self.tagView];
   [self.tagView mas_makeConstraints:^(MASConstraintMaker *make) {
-    UIView *superView = self.view;
     make.center.equalTo(superView);
-    make.leading.equalTo(superView.mas_leading);
-    make.trailing.equalTo(superView.mas_trailing);
+    make.leading.equalTo(superView);
+    make.trailing.equalTo(superView);
   }];
 
   //Add Tags
-  [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-  {
-    SKTag *tag = [SKTag tagWithText:obj];
+  [@[@"Python", @"Javascript", @"HTML", @"Go", @"Objective-C", @"C", @"PHP"] enumerateObjectsUsingBlock:^(NSString *text, NSUInteger idx, BOOL *stop) {
+    SKTag *tag = [SKTag tagWithText:text];
     tag.textColor = UIColor.whiteColor;
     tag.bgColor = UIColor.orangeColor;
     tag.cornerRadius = 3;
