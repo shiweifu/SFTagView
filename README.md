@@ -27,11 +27,10 @@ Check out the project. It contains the usages of normal way and in UITableViewCe
 {
   self.tagView = ({
     SKTagView *view = [SKTagView new];
-    view.backgroundColor = [UIColor whiteColor];
+    view.backgroundColor = [UIColor cyanColor];
     view.padding = UIEdgeInsetsMake(10, 25, 10, 25);
-    view.interitemSpacing = 5;
-    view.lineSpacing = 2;
-	__weak SKTagView *weakView = view;
+    view.interitemSpacing = 8;
+    view.lineSpacing = 10;
 	//Handle tag's tap event
 	view.didTapTagAtIndex = ^(NSUInteger index){
 		NSLog(@"Tap");
