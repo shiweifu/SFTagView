@@ -124,7 +124,7 @@
 
     [self.subviews enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
       if ([obj isKindOfClass:[SFTagButton class]]) {
-        if (obj.frame.origin.y == maxY) {
+        if (floor(obj.frame.origin.y) == floor(maxY)) {
           maxX = MAX(maxX, obj.frame.origin.x + obj.frame.size.width);
         }
       }
