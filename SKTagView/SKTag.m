@@ -21,7 +21,7 @@ static const CGFloat kDefaultFontSize = 13.0;
 }
 
 - (instancetype)initWithText: (NSString *)text {
-    self = [super init];
+    self = [self init];
     if (self) {
         _text = text;
     }

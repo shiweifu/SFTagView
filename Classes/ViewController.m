@@ -53,8 +53,8 @@
         SKTag *tag = [SKTag tagWithText: text];
         tag.textColor = [UIColor whiteColor];
         tag.fontSize = 15;
-        tag.enable = YES;
         //tag.font = [UIFont fontWithName:@"Courier" size:15];
+        //tag.enable = NO;
         tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
         tag.bgColor = [UIColor hx_colorWithHexString: self.colors[idx % self.colors.count]];
         tag.cornerRadius = 5;
