@@ -52,7 +52,7 @@ Check out the project. It contains the usages of normal way and in UITableViewCe
     tag.cornerRadius = 3;
 	tag.fontSize = 15;
 	tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
-
+	tag.enabled = true
     [self.tagView addTag:tag];
   }];
 }
