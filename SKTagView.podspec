@@ -18,6 +18,5 @@ Pod::Spec.new do |s|
   s.source_files  = "SKTagView/*"
   s.framework  = "UIKit", "Foundation"
   s.requires_arc = true
-  s.dependency "Masonry"
 
 end

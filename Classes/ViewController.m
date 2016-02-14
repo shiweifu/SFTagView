@@ -90,10 +90,6 @@
     [self.tagView removeTagAtIndex: self.index.text.integerValue];
 }
 
-- (IBAction)onRemoveAll: (id)sender {
-    [self.tagView removeAllTags];
-}
-
 - (IBAction)onTapBg: (id)sender {
     [self.view endEditing: YES];
 }

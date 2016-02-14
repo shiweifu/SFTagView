@@ -7,23 +7,18 @@
 
 #import "SKTagView.h"
 #import "SKTagButton.h"
-#import <Masonry/Masonry.h>
 
-#define SAVE_C(c) [self.tagsContraints addObject: c]
 
 @interface SKTagView ()
-@property (strong, nonatomic, nullable) NSMutableArray *tagsConstraints;
+
 @property (strong, nonatomic, nullable) NSMutableArray *tags;
 @property (assign, nonatomic) BOOL didSetup;
+
 @end
 
 @implementation SKTagView
 
 #pragma mark - Lifecycle
-- (void)updateConstraints {
-    [self updateWrappingConstrains];
-    [super updateConstraints];
-}
 
 -(CGSize)intrinsicContentSize {
     if (!self.tags.count) {
@@ -32,15 +27,15 @@
     
     NSArray *subviews = self.subviews;
     UIView *previousView = nil;
-    CGFloat leftOffset = self.padding.left;
-    CGFloat bottomOffset = self.padding.bottom;
-    CGFloat rightOffset = self.padding.right;
-    CGFloat itemSpacing = self.interitemSpacing;
     CGFloat topPadding = self.padding.top;
+    CGFloat bottomPadding = self.padding.bottom;
+    CGFloat leftPadding = self.padding.left;
+    CGFloat rightPadding = self.padding.right;
+    CGFloat itemSpacing = self.interitemSpacing;
     CGFloat lineSpacing = self.lineSpacing;
-    CGFloat currentX = leftOffset;
+    CGFloat currentX = leftPadding;
     CGFloat intrinsicHeight = topPadding;
-    CGFloat intrinsicWidth = leftOffset;
+    CGFloat intrinsicWidth = leftPadding;
     
     if (!self.singleLine && self.preferredMaxLayoutWidth > 0) {
         NSInteger lineCount = 0;
@@ -49,11 +44,11 @@
             if (previousView) {
                 CGFloat width = size.width;
                 currentX += itemSpacing;
-                if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth) {
+                if (currentX + width + rightPadding <= self.preferredMaxLayoutWidth) {
                     currentX += size.width;
                 } else {
                     lineCount ++;
-                    currentX = leftOffset + size.width;
+                    currentX = leftPadding + size.width;
                     intrinsicHeight += size.height;
                 }
             } else {
@@ -62,17 +57,17 @@
                 currentX += size.width;
             }
             previousView = view;
-            intrinsicWidth = MAX(intrinsicWidth, currentX + rightOffset);
+            intrinsicWidth = MAX(intrinsicWidth, currentX + rightPadding);
         }
         
-        intrinsicHeight += bottomOffset + lineSpacing * (lineCount - 1);
+        intrinsicHeight += bottomPadding + lineSpacing * (lineCount - 1);
     } else {
         for (UIView *view in subviews) {
             CGSize size = view.intrinsicContentSize;
             intrinsicWidth += size.width;
         }
-        intrinsicWidth += itemSpacing * (subviews.count - 1) + rightOffset;
-        intrinsicHeight += ((UIView *)subviews.firstObject).intrinsicContentSize.height + bottomOffset;
+        intrinsicWidth += itemSpacing * (subviews.count - 1) + rightPadding;
+        intrinsicHeight += ((UIView *)subviews.firstObject).intrinsicContentSize.height + bottomPadding;
     }
     
     return CGSizeMake(intrinsicWidth, intrinsicHeight);
@@ -84,100 +79,11 @@
     }
     
     [super layoutSubviews];
+    
+    [self layoutTags];
 }
 
-#pragma mark - Private
--(void)updateWrappingConstrains {
-    if (self.didSetup || !self.tags.count) {
-        return;
-    }
-    
-    //Remove old constraints
-    for (id obj in self.tagsConstraints) {
-        if([obj isKindOfClass: MASConstraint.class]) {
-            [(MASConstraint *)obj uninstall];
-        } else if([obj isKindOfClass: NSArray.class]) {
-            for (MASConstraint * constraint in (NSArray *)obj) {
-                [constraint uninstall];
-            }
-        } else {
-            NSAssert(NO, @"Error: unknown class type: %@",obj);
-        }
-    }
-    [self.tagsConstraints removeAllObjects];
-    
-    //Install new constraints
-    NSArray *subviews = self.subviews;
-    UIView *previousView = nil;
-    UIView *superView = self;
-    CGFloat leftOffset = self.padding.left;
-    CGFloat bottomOffset = self.padding.bottom;
-    CGFloat rightOffset = self.padding.right;
-    CGFloat itemSpacing = self.interitemSpacing;
-    CGFloat topPadding = self.padding.top;
-    CGFloat lineSpacing = self.lineSpacing;
-    CGFloat currentX = leftOffset;
-    
-    if (!self.singleLine && self.preferredMaxLayoutWidth > 0) {
-        for (UIView *view in subviews) {
-            [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                 SAVE_C(make.trailing.lessThanOrEqualTo(superView).with.offset(-rightOffset));
-             }];
-            
-            CGSize size = view.intrinsicContentSize;
-            if (previousView) {
-                CGFloat width = size.width;
-                currentX += itemSpacing;
-                if (currentX + width + rightOffset <= self.preferredMaxLayoutWidth) {
-                    [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                        SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemSpacing));
-                        SAVE_C(make.centerY.equalTo(previousView.mas_centerY));
-                    }];
-                    currentX += size.width;
-                } else {
-                    [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                        SAVE_C(make.top.greaterThanOrEqualTo(previousView.mas_bottom).with.offset(lineSpacing));
-                        SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
-                    }];
-                    currentX = leftOffset + size.width;
-                }
-            } else {
-                [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                    SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
-                    SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
-                }];
-                currentX += size.width;
-            }
-            
-            previousView = view;
-        }
-    } else {
-        for (UIView *view in subviews) {
-            CGSize size = view.intrinsicContentSize;
-            if (previousView) {
-                [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                     SAVE_C(make.leading.equalTo(previousView.mas_trailing).with.offset(itemSpacing));
-                     SAVE_C(make.centerY.equalTo(previousView.mas_centerY));
-                 }];
-                currentX += size.width;
-            } else {
-                [view mas_makeConstraints: ^(MASConstraintMaker *make) {
-                     SAVE_C(make.top.equalTo(superView.mas_top).with.offset(topPadding));
-                     SAVE_C(make.leading.equalTo(superView.mas_leading).with.offset(leftOffset));
-                 }];
-                currentX += size.width;
-            }
-            
-            previousView = view;
-        }
-    }
-    
-    [previousView mas_makeConstraints: ^(MASConstraintMaker *make) {
-         SAVE_C(make.bottom.equalTo(superView.mas_bottom).with.offset(-bottomOffset));
-     }];
-    
-    self.didSetup = YES;
-}
+#pragma mark - Custom accessors
 
 - (NSMutableArray *)tags {
     if(!_tags) {
@@ -186,20 +92,66 @@
     return _tags;
 }
 
-- (NSMutableArray *)tagsContraints {
-    if(!_tagsConstraints) {
-        _tagsConstraints = [NSMutableArray array];
-    }
-    return _tagsConstraints;
-}
-
 - (void)setPreferredMaxLayoutWidth: (CGFloat)preferredMaxLayoutWidth {
     if (preferredMaxLayoutWidth != _preferredMaxLayoutWidth) {
-        _didSetup = NO;
         _preferredMaxLayoutWidth = preferredMaxLayoutWidth;
-        [self setNeedsUpdateConstraints];
+        _didSetup = NO;
+        [self invalidateIntrinsicContentSize];
     }
 }
+
+#pragma mark - Private
+
+- (void)layoutTags {
+    if (self.didSetup || !self.tags.count) {
+        return;
+    }
+    
+    NSArray *subviews = self.subviews;
+    UIView *previousView = nil;
+    CGFloat topPadding = self.padding.top;
+    CGFloat leftPadding = self.padding.left;
+    CGFloat rightPadding = self.padding.right;
+    CGFloat itemSpacing = self.interitemSpacing;
+    CGFloat lineSpacing = self.lineSpacing;
+    CGFloat currentX = leftPadding;
+    
+    if (!self.singleLine && self.preferredMaxLayoutWidth > 0) {
+        for (UIView *view in subviews) {
+            CGSize size = view.intrinsicContentSize;
+            if (previousView) {
+                CGFloat width = size.width;
+                currentX += itemSpacing;
+                if (currentX + width + rightPadding <= self.preferredMaxLayoutWidth) {
+                    view.frame = CGRectMake(currentX, CGRectGetMinY(previousView.frame), size.width, size.height);
+                    currentX += size.width;
+                } else {
+                    CGFloat width = MIN(size.width, self.preferredMaxLayoutWidth - leftPadding - rightPadding);
+                    view.frame = CGRectMake(leftPadding, CGRectGetMaxY(previousView.frame) + lineSpacing, width, size.height);
+                    currentX = leftPadding + width;
+                }
+            } else {
+                CGFloat width = MIN(size.width, self.preferredMaxLayoutWidth - leftPadding - rightPadding);
+                view.frame = CGRectMake(leftPadding, topPadding, width, size.height);
+                currentX += width;
+            }
+            
+            previousView = view;
+        }
+    } else {
+        for (UIView *view in subviews) {
+            CGSize size = view.intrinsicContentSize;
+            view.frame = CGRectMake(currentX, topPadding, size.width, size.height);
+            currentX += size.width;
+            
+            previousView = view;
+        }
+    }
+    
+    self.didSetup = YES;
+}
+
+#pragma mark - IBActions
 
 - (void)onTag: (UIButton *)btn {
     if (self.didTapTagAtIndex) {
@@ -208,6 +160,7 @@
 }
 
 #pragma mark - Public
+
 - (void)addTag: (SKTag *)tag {
     NSParameterAssert(tag);
     SKTagButton *btn = [SKTagButton buttonWithTag: tag];

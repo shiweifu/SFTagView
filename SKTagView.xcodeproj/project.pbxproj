@@ -83,6 +83,7 @@
 		682ABA611A36933300D57A1A = {
 			isa = PBXGroup;
 			children = (
+				CB3B6CFF1A5E27C9008911FF /* SKTagView */,
 				682ABA6C1A36933300D57A1A /* Classes */,
 				682ABA861A36933300D57A1A /* SKTagViewTests */,
 				682ABA6B1A36933300D57A1A /* Products */,
@@ -103,7 +104,6 @@
 		682ABA6C1A36933300D57A1A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CB3B6CFF1A5E27C9008911FF /* SKTagView */,
 				682ABA711A36933300D57A1A /* AppDelegate.h */,
 				682ABA721A36933300D57A1A /* AppDelegate.m */,
 				682ABA741A36933300D57A1A /* ViewController.h */,
@@ -165,8 +165,7 @@
 				E1988DC652E4B5A7DD3FC44D /* SKTagButton.m */,
 				E19884C2F2577114719748BD /* SKTagButton.h */,
 			);
-			name = SKTagView;
-			path = ../SKTagView;
+			path = SKTagView;
 			sourceTree = "<group>";
 		};
 		E9B8B9417B704821F5FF7698 /* Frameworks */ = {
@@ -229,6 +228,7 @@
 				TargetAttributes = {
 					682ABA691A36933300D57A1A = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = Z59GEMSQ7R;
 					};
 					682ABA821A36933300D57A1A = {
 						CreatedOnToolsVersion = 6.0;
@@ -459,6 +459,7 @@
 			baseConfigurationReference = 6E4B93550F83909B378F1930 /* Pods-SKTagView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Classes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.coloshine.$(PRODUCT_NAME:rfc1034identifier)";
@@ -472,6 +473,7 @@
 			baseConfigurationReference = 34A8B7A699E830DE1102943F /* Pods-SKTagView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Classes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.coloshine.$(PRODUCT_NAME:rfc1034identifier)";

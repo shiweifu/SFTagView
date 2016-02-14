@@ -26,14 +26,16 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 
 @implementation TagsTableViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.colors = @[@"#7ecef4", @"#84ccc9", @"#88abda", @"#7dc1dd", @"#b6b8de"];
-    self.tableView.tableFooterView = [UIView new];
 }
 
-#pragma mark - UITableViewDataSource
+#pragma mark - Private
+
 - (void)configureCell: (TagsTableCell *)cell atIndexPath: (NSIndexPath *)indexPath {
     cell.tagView.preferredMaxLayoutWidth = SCREEN_WIDTH;
     cell.tagView.padding = UIEdgeInsetsMake(12, 12, 12, 12);
@@ -44,17 +46,25 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
     
     //Add Tags
     [@[@"Python", @"Javascript", @"Swift", @"Go", @"Objective-C",@"C", @"PHP"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-         SKTag *tag = [SKTag tagWithText:obj];
-         tag.textColor = [UIColor whiteColor];
-         tag.fontSize = 15;
-         tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
-         tag.bgImg = [UIImage imageWithColor: [UIColor hx_colorWithHexString: self.colors[idx % self.colors.count]]];
-         tag.cornerRadius = 5;
-         tag.enable = NO;
-         
-         [cell.tagView addTag:tag];
-     }];
+        SKTag *tag = [SKTag tagWithText:obj];
+        tag.textColor = [UIColor whiteColor];
+        tag.fontSize = 15;
+        tag.padding = UIEdgeInsetsMake(13.5, 12.5, 13.5, 12.5);
+        tag.bgImg = [UIImage imageWithColor: [UIColor hx_colorWithHexString: self.colors[idx % self.colors.count]]];
+        tag.cornerRadius = 5;
+        tag.enable = NO;
+        
+        [cell.tagView addTag:tag];
+    }];
 }
+
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 100;
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TagsTableCell *cell = [tableView dequeueReusableCellWithIdentifier:kTagsTableCellReuseIdentifier forIndexPath:indexPath];
@@ -63,8 +73,14 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
 }
 
 #pragma mark - UITableViewDelegate
+
 - (CGFloat)tableView: (UITableView *)tableView heightForRowAtIndexPath: (NSIndexPath *)indexPath {
-    TagsTableCell *cell = [tableView dequeueReusableCellWithIdentifier: kTagsTableCellReuseIdentifier forIndexPath: indexPath];
+    static TagsTableCell *cell = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cell = [tableView dequeueReusableCellWithIdentifier: kTagsTableCellReuseIdentifier];
+    });
     [self configureCell: cell atIndexPath: indexPath];
     return [cell.contentView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize].height + 1;
 }
@@ -73,10 +89,12 @@ static NSString *const kTagsTableCellReuseIdentifier = @"TagsTableCell";
     [tableView deselectRowAtIndexPath: indexPath animated:YES];
 }
 
-#pragma mark - User interactions
+#pragma mark - IBActions
+
 - (void)handleBtn:(id)sender {
     NSLog(@"Tap");
 }
+
 @end
 
 @implementation UIImage (SKTagView)
