@@ -5,9 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/SKTagView.svg?style=flat-square)](http://cocoadocs.org/docsets/SKTagView)
 [![Platform](https://img.shields.io/cocoapods/p/SKTagView.svg?style=flat-square)](http://cocoadocs.org/docsets/SKTagView)
 
-This library is derived from [SFTagView](https://github.com/shiweifu/SFTagView), which tries to build a view displaying tags without using UICollectionView and supports auto layout.
+This library is derived from [SFTagView](https://github.com/shiweifu/SFTagView), which tries to build a view displaying tags without using UICollectionView and supports Autolayout.
 
-I tried to make it more auto layout. After having tried a lot, I inspired by UILabel. Now it just works like UILabel and supports single line and multi-line mode.
+I tried to make it more Autolayout. After having tried a lot, I inspired by UILabel. Now it just works like UILabel and supports single line and multi-line mode.
 
 ### Installation with CocoaPods
 
