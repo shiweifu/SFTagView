@@ -17,6 +17,9 @@
 @property (nonatomic, assign) int lineSpace;
 @property (nonatomic, assign) CGFloat insets;
 
+// 0左对其 1右对其
+@property (nonatomic, assign) NSInteger alignment;
+
 - (void)addTag:(SFTag *)tag;
 
 - (void)removeAllTags;
