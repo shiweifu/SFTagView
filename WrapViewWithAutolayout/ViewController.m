@@ -67,6 +67,9 @@
     _tagView = [[SFTagView alloc] initWithFrame:CGRectMake(0, 20, 320, 0)];
     [_tagView setBackgroundColor:[UIColor blueColor]];
 
+      // alignment 0 左对齐布局 1 右对齐布局
+      _tagView.alignment = 1;
+      
     _tagView.margin    = UIEdgeInsetsMake(10, 3, 10, 3);
     _tagView.insets    = 20;
     _tagView.lineSpace = 5;

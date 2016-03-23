@@ -32,7 +32,13 @@
 
 ![预览图][1]
 
+![预览图][2]
+
+![预览图][3]
+
 
   [1]: http://i3.tietuku.com/f55315bbb964ce21.jpg
+  [2]: https://github.com/YiQieSuiYuan/SFTagView/SFTagView-1.png
+  [3]: https://github.com/YiQieSuiYuan/SFTagView/SFTagView-2.png
 
 

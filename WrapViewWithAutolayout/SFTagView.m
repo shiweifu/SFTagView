@@ -107,45 +107,86 @@
 
 - (void)rearrangeTags
 {
-  self.intrinsicHeight = 0;
-  [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
-    [obj removeFromSuperview];
-  }];
-  __block float maxY = self.margin.top;
-  __block float maxX = self.margin.left;
-  __block CGSize size;
-  [self.tags enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
-    size = obj.frame.size;
-    [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
-      if ([obj isKindOfClass:[SFTagButton class]]) {
-        maxY = MAX(maxY, obj.frame.origin.y);
-      }
-    }];
-
-    [self.subviews enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
-      if ([obj isKindOfClass:[SFTagButton class]]) {
-        if (obj.frame.origin.y == maxY) {
-          maxX = MAX(maxX, obj.frame.origin.x + obj.frame.size.width);
-        }
-      }
-    }];
-
-    // Go to a new line if the tag won't fit
-    if (size.width + maxX + self.insets > (self.frame.size.width - self.margin.right)) {
-      maxY += size.height + self.lineSpace;
-      maxX = self.margin.left;
+    // 左对齐布局
+    if (self.alignment == 0)
+    {
+        [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+            [obj removeFromSuperview];
+        }];
+        __block float maxY = self.margin.top;
+        __block float maxX = self.margin.left;
+        __block CGSize size;
+        [self.tags enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+            size = obj.frame.size;
+            [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+                if ([obj isKindOfClass:[SFTagButton class]]) {
+                    maxY = MAX(maxY, obj.frame.origin.y);
+                }
+            }];
+            
+            [self.subviews enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+                if ([obj isKindOfClass:[SFTagButton class]]) {
+                    if (obj.frame.origin.y == maxY) {
+                        maxX = MAX(maxX, obj.frame.origin.x + obj.frame.size.width);
+                    }
+                }
+            }];
+            
+            // Go to a new line if the tag won't fit
+            if (size.width + maxX + self.insets > (self.frame.size.width - self.margin.right)) {
+                maxY += size.height + self.lineSpace;
+                maxX = self.margin.left;
+            }
+            obj.frame = (CGRect){maxX + self.insets, maxY, size.width, size.height};
+            [self addSubview:obj];
+        }];
+        
+        CGRect r = self.frame;
+        CGFloat n = maxY + size.height + self.margin.bottom;
+        self.intrinsicHeight = n > self.intrinsicHeight? n : self.intrinsicHeight;
+        [self setFrame:CGRectMake(r.origin.x, r.origin.y, self.frame.size.width, self.intrinsicHeight)];
     }
-    obj.frame = (CGRect){maxX + self.insets, maxY, size.width, size.height};
-    [self addSubview:obj];
-  }];
-
-  CGRect r = self.frame;
-  CGFloat n = maxY + size.height + self.margin.bottom;
-  self.intrinsicHeight = n > self.intrinsicHeight? n : self.intrinsicHeight;
-  [self setFrame:CGRectMake(r.origin.x, r.origin.y, self.frame.size.width, self.intrinsicHeight)];
-  NSLog(@"%@", NSStringFromCGRect(self.frame));
+    // 右对齐布局
+    else
+    {
+        [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+            [obj removeFromSuperview];
+        }];
+        __block float maxY = self.margin.top;
+        __block float maxX = self.margin.left;
+        __block CGSize size;
+        [self.tags enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+            size = obj.frame.size;
+            [self.subviews enumerateObjectsUsingBlock:^(UIView* obj, NSUInteger idx, BOOL *stop) {
+                if ([obj isKindOfClass:[SFTagButton class]]) {
+                    maxY = MAX(maxY, obj.frame.origin.y);
+                }
+            }];
+            
+            [self.subviews enumerateObjectsUsingBlock:^(SFTagButton *obj, NSUInteger idx, BOOL *stop) {
+                if ([obj isKindOfClass:[SFTagButton class]]) {
+                    if (obj.frame.origin.y == maxY) {
+                        maxX = MAX(maxX, self.frame.size.width-obj.frame.origin.x);
+                    }
+                }
+            }];
+            
+            // Go to a new line if the tag won't fit
+            if (size.width + maxX + self.insets > (self.frame.size.width - self.margin.right)) {
+                maxY += size.height + self.lineSpace;
+                maxX = self.margin.left;
+            }
+            obj.frame = (CGRect){self.frame.size.width - obj.frame.size.width - maxX - self.insets, maxY, size.width, size.height};
+            [self addSubview:obj];
+            NSLog(@"%@---%@",@(self.frame.size.width - obj.frame.size.width - maxX - self.insets),@(maxX));
+        }];
+        
+        CGRect r = self.frame;
+        CGFloat n = maxY + size.height + self.margin.bottom;
+        self.intrinsicHeight = n > self.intrinsicHeight? n : self.intrinsicHeight;
+        [self setFrame:CGRectMake(r.origin.x, r.origin.y, self.frame.size.width, self.intrinsicHeight)];
+    }
 }
-
 - (void)layoutSubviews
 {
   [super layoutSubviews];
