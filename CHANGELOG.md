@@ -1,3 +1,6 @@
+### v0.9.1
+Add highlighted background color
+
 ### v0.9
 Remove Autolayout inside SKTagView.
 
