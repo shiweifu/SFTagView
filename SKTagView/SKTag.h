@@ -13,6 +13,7 @@
 @property (strong, nonatomic, nullable) UIColor *textColor;
 ///backgound color
 @property (strong, nonatomic, nullable) UIColor *bgColor;
+@property (strong, nonatomic, nullable) UIColor *highlightedBgColor;
 ///background image
 @property (strong, nonatomic, nullable) UIImage *bgImg;
 @property (assign, nonatomic) CGFloat cornerRadius;
