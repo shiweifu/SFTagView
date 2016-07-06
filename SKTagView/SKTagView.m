@@ -143,7 +143,8 @@
             CGSize size = view.intrinsicContentSize;
             view.frame = CGRectMake(currentX, topPadding, size.width, size.height);
             currentX += size.width;
-            
+            currentX += itemSpacing;
+
             previousView = view;
         }
     }
