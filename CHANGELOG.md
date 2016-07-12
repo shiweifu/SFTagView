@@ -1,3 +1,6 @@
+### v0.9.2
+Fixed item spacing being ignored on single line mode.
+
 ### v0.9.1
 Add highlighted background color
 
