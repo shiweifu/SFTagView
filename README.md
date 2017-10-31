@@ -1,4 +1,4 @@
-[DEPRECATED]
+[DEPRECATED]  
 [use https://github.com/shiweifu/DPTagView for insteaded.]
 
 使用 View 实现的 Tag视图，不用再使用CollectionView
