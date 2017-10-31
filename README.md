@@ -1,3 +1,6 @@
+[DEPRECATED]
+[use https://github.com/shiweifu/DPTagView for insteaded.]
+
 使用 View 实现的 Tag视图，不用再使用CollectionView
 
 时过境迁，因为性能和复用性的考虑，本库去掉使用AutoLayout来实现，如果你想使用AutoLayout版，可以使用这个：[https://github.com/zsk425/SKTagView](https://github.com/zsk425/SKTagView)
